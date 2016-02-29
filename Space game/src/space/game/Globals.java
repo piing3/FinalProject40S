@@ -11,5 +11,6 @@ class Globals {
     static final int WINDOW_HEIGHT = 720;
     static final int WINDOW_WIDTH = 1080;
     static MainMenu mainMenu;
+    static Game game;
 
 }

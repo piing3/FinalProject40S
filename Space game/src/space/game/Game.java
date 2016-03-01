@@ -25,42 +25,15 @@ class Game extends JPanel{
         this.setBackground(Color.gray);
         this.addPlayer();
     }
-    public void addArrowKeys(final JPanel player){
-        KeyListener kl = new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                //System.out.println(e.getKeyChar()+" = "+e.getKeyCode());
-                if (e.getKeyCode() == 37) {//left
-                    if(player.getX() > 0)player.setLocation(player.getX()-50, player.getY());
-                }
-                if (e.getKeyCode() == 38) {//up                                        
-                    if(player.getY() > 0)player.setLocation(player.getX(), player.getY()-50);
-                }
-                if (e.getKeyCode() == 39) {//right
-                    if(player.getX() < getWidth()-50) player.setLocation(player.getX()+50, player.getY()); 
-                }
-                if (e.getKeyCode() == 40) {//down
-                    if(player.getY() < getHeight()-50) player.setLocation(player.getX(), player.getY()+50);     
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        };
-        this.addKeyListener(kl);
-    }
     public void addPlayer(){
         JPanel player = new JPanel();
         player.setBackground(Color.blue);
         player.setBounds(0, 0, 100, 100);
-        this.addArrowKeys(player);
+        Globals.window.addArrowKeys(player);
         this.add(player);
+//        for (int i = 0; i < Globals.window.getComponentCount(); i++) {
+//            System.out.println(Globals.window.getKeyListeners().length);
+//        }
     }
 
 

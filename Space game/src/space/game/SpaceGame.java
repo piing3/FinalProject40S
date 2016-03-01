@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -23,6 +24,7 @@ public class SpaceGame {
     public static void main(String[] args) {
         load();
         displayMainMenu();
+        //newGame();
         Globals.window.setVisible(true);
     }
     /**
@@ -41,7 +43,11 @@ public class SpaceGame {
 
     static void newGame() {
         Globals.game = new Game();
-        Globals.window.changeDisplay(Globals.game);
+        JPanel jPanel = new JPanel();
+        jPanel.setBounds(0, 0, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
+        Globals.window.remove(Globals.mainMenu);
+        Globals.window.add(Globals.game);
+        Globals.window.repaint();
         
 //        String value = JOptionPane.showInputDialog("Enter a value");
 //        JFileChooser fc = new JFileChooser();

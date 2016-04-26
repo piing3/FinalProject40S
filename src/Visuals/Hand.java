@@ -25,7 +25,7 @@ public class Hand extends JPanel{
         this.hand = hand;
         this.setLayout(new GridLayout(1, finalproject.Hand.MAX_SIZE));
         this.setSize(finalproject.FinalProject.game.getWidth(), Card.HEIGHT);
-        this.setBackground(Color.red);
+        this.setBackground(Color.gray);
         
         for (int i = 0; i < finalproject.Hand.MAX_SIZE; i++) {
             if (hand.CARDS[i] != null) {

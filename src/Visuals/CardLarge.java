@@ -21,7 +21,7 @@ class CardLarge extends Card{
 
     Card card;
     
-    CardLarge(finalproject.Card card) {
+    CardLarge(cards.templates.Card card) {
         super(card);
         Point mouse = MouseInfo.getPointerInfo().getLocation();
         this.setLocation(mouse.x - 100, mouse.y - 150);

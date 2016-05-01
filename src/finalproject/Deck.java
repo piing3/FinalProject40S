@@ -1,5 +1,8 @@
 package finalproject;
 
+import cards.templates.Card;
+import cards.TestCard;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -13,8 +16,7 @@ public class Deck {
     // Globals-------------------
     
     private final int MAX_SIZE = 40; 
-    private final Card[] CARDS = new Card[MAX_SIZE];
-    private int count = MAX_SIZE;
+    private final ArrayList<Card> CARDS = new ArrayList<>();
     
     // Normal--------------------
     
@@ -22,9 +24,8 @@ public class Deck {
      * Makes a new blank deck.
      */
     public Deck() {
-        Random r = new Random();
         for (int i = 0; i < MAX_SIZE; i++) {
-            addCard(CardList.cardList[r.nextInt(100)]);
+            addCard(new TestCard());
         }
     }
     
@@ -33,7 +34,8 @@ public class Deck {
      * @return The picked card.
      */
     public Card pickCard(){
-        Card c = CARDS[count];
+        Random r = new Random();
+        Card c = CARDS.get(r.nextInt(MAX_SIZE));
         return c;
     } 
     
@@ -52,21 +54,7 @@ public class Deck {
      * @param card The card to add. 
      */
     public void addCard(Card card){
-        if(count > 0){
-            count--;
-            CARDS[count] = card;
-            shuffleDeck();
-        }
-    }
-    
-    /**
-     * Removes the top card from the deck.
-     */
-    public void removeCard(){
-        if(count < MAX_SIZE){
-            CARDS[count] = null;
-            count++;
-        }
+        CARDS.add(card);
         shuffleDeck();
     }
     
@@ -75,18 +63,8 @@ public class Deck {
      * @param card The card to remove
      */
     public void removeCard(Card card){
-        //todo
-    }
-    
-    /**
-     * Checks if the deck is full.
-     * @return true if deck is full.
-     */
-    private boolean checkFull(){
-        for (int i = 0; i < MAX_SIZE; i++) {
-            if(CARDS[i].equals(new Card())) return false;
-        }
-        return true;
+        CARDS.remove(card);
+        shuffleDeck();
     }
     
     // Utill---------------------
@@ -97,17 +75,15 @@ public class Deck {
     }
 
     public boolean equals(Deck deck) {
-        for (int i = 0; i < MAX_SIZE; i++) {
-            if(!this.CARDS[i].equals(deck.CARDS[i])) return false; 
-        }
-        return true; 
+        
+        return this.CARDS.equals(deck.CARDS); 
     }
 
     @Override
     public String toString() {
         String string = "";
         for (int i = 0; i < MAX_SIZE; i++) {
-            string +="["+ this.CARDS[i].toString()+"] \n";
+            string +="["+ this.CARDS.get(i).toString()+"] ";
         }
         string = string.substring(0, string.length()-2);
         return string;

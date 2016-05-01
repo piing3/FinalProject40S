@@ -6,6 +6,10 @@
 
 package finalproject;
 
+import cards.templates.Card;
+import cards.templates.Minion;
+import cards.TestCard;
+
 /**
  * Project:
  * Author: Davin
@@ -30,14 +34,14 @@ public class Hand {
     public Hand() {
         deck = new Deck();
         for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS[i] = new Card();
+            CARDS[i] = new TestCard();
         }
     }
     
     public Hand(Deck deck) {
         this.deck = deck;
         for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS[i] = new Card();
+            CARDS[i] = new TestCard();
         }
         for (int i = 0; i < START_SIZE; i++) {
             drawCard();
@@ -54,9 +58,8 @@ public class Hand {
         boolean full = this.checkFull();
         if(!full){
             Card newCard = deck.pickCard();
-            deck.removeCard();
-            this.addCard(newCard);
-            System.out.println(newCard.toString());
+            deck.removeCard(newCard);
+            newCard.cardDrawn(this);
         }
     }
     
@@ -103,7 +106,7 @@ public class Hand {
      */
     private boolean checkFull(){
         for (int i = 0; i < MAX_SIZE; i++) {
-            if(CARDS[i].equals(new Card())) return false;
+            if(CARDS[i] == null) return false;
         }
         return true;
     }

@@ -19,7 +19,7 @@ import javax.swing.Timer;
  */
 public class Card extends JPanel{
 
-    finalproject.Card card;
+    cards.templates.Card card;
     
     ImageIcon cardBackround;
     ImageIcon cardImage;
@@ -27,7 +27,7 @@ public class Card extends JPanel{
     public static final int WIDTH = 100;
     public static final int HEIGHT = 160;
     
-    public Card(final finalproject.Card card) {
+    public Card(final cards.templates.Card card) {
         this.card = card;
         
         this.addMouseListener(new MouseListener() {

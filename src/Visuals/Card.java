@@ -1,14 +1,17 @@
-package Visuals;
+package visuals;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /**
@@ -29,11 +32,14 @@ public class Card extends JPanel{
     
     public Card(final cards.templates.Card card) {
         this.card = card;
+        //this.cardLarge = new CardLarge(this);
         
         this.addMouseListener(new MouseListener() {
 
             @Override
-            public void mouseClicked(MouseEvent e) {}
+            public void mouseClicked(MouseEvent e) {
+                card.cardPlayed();
+            }
 
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -43,22 +49,12 @@ public class Card extends JPanel{
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                Timer timer = new Timer(1000, new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (cardLarge == null) {
-                            cardLarge = new CardLarge(card);
-                        }
-                        cardLarge.setVisible(true);
-                    }
-                });
-                timer.start();
+                //hoverCard();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                cardLarge.setVisible(false);
+                //cardLarge.setVisible(false);
             }
         });
         
@@ -78,5 +74,24 @@ public class Card extends JPanel{
 //        image.setLocation(0, 0);
 //        this.add(image);
         
+    }
+    
+    private void hoverCard() {
+        TimerTask task = new TimerTask() {
+
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        cardLarge.setVisible(true);
+                    }
+                });
+            }
+        };
+
+        java.util.Timer timer = new java.util.Timer(true);
+        timer.schedule(task, 1000);
     }
 }

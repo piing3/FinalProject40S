@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Visuals;
+package visuals;
 
 import finalproject.*;
 import static finalproject.FinalProject.window;

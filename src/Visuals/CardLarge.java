@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package Visuals;
+package visuals;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  * Project:
@@ -17,17 +12,21 @@ import javax.swing.ImageIcon;
  * Date: 26-Apr-2016
  * Teacher: Mr. Wachs 
  */
-class CardLarge extends Card{
+class CardLarge extends JPanel{
 
-    Card card;
+    visuals.Card card;
     
-    CardLarge(cards.templates.Card card) {
-        super(card);
-        Point mouse = MouseInfo.getPointerInfo().getLocation();
-        this.setLocation(mouse.x - 100, mouse.y - 150);
+    ImageIcon cardBackround;
+    ImageIcon cardImage;
+    public static final int WIDTH = 100;
+    public static final int HEIGHT = 160;
+    
+    CardLarge(visuals.Card card) {
+        Point point = card.getLocation();
+        this.setLocation(point.x - 100, point.y - 150);
         this.setSize(200, 300);
         this.cardBackround = new ImageIcon("src\\Images\\NeutralCardBackroundLarge.png");
-        finalproject.FinalProject.game.add(this);
+        finalproject.FinalProject.game.add(this, 0);
     }
     
 

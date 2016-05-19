@@ -1,9 +1,9 @@
 package finalproject;
 
 
-import Visuals.Menu;
-import Visuals.Game;
-import Visuals.Window;
+import visuals.Menu;
+import visuals.Game;
+import visuals.Window;
 /**
  * Project:
  * Author: Davin
@@ -40,10 +40,15 @@ public class FinalProject {
     }
 
     private static void startGame() { 
-        Hand hand = new Hand();
-        Visuals.Hand handVisual = new Visuals.Hand(hand);
-        handVisual.setLocation(0, game.getHeight()-handVisual.getHeight());
-        game.add(handVisual,0);
+        
+        Deck player = new Deck();
+        player.saveDeck();
+        player.readDeck("C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\GameSaves\\test.txt");
+        
+        Deck enemy = new Deck();
+        enemy.setDefault2();
+        
+        BattleManager battleManager = new BattleManager(player, enemy);
         
         finalproject.FinalProject.window.setVisible(true); 
     }

@@ -8,7 +8,7 @@ package finalproject;
 
 import cards.templates.Card;
 import cards.templates.Minion;
-import cards.TestCard;
+import cards.TestCard1;
 
 /**
  * Project:
@@ -34,14 +34,14 @@ public class Hand {
     public Hand() {
         deck = new Deck();
         for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS[i] = new TestCard();
+            CARDS[i] = new TestCard1();
         }
     }
     
     public Hand(Deck deck) {
         this.deck = deck;
         for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS[i] = new TestCard();
+            CARDS[i] = new TestCard1();
         }
         for (int i = 0; i < START_SIZE; i++) {
             drawCard();

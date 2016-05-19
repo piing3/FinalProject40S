@@ -8,10 +8,12 @@ import cards.templates.Minion;
  * @author Davin
  * Teacher: Mr. Wachs
  */
-public class TestCard extends Minion{
+public class TestCard1 extends Minion{
 
-    public TestCard() {
-        this.setAttack(1);
+    public TestCard1() {
+        this.setName("Poop");
+        
+        this.setAttack(2);
         this.setHealth(1);
         this.setCost(1);
     }

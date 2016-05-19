@@ -1,5 +1,6 @@
 package cards.templates;
 
+import finalproject.BattleManager;
 import finalproject.Hand;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -46,9 +47,13 @@ public abstract class Card{
     public void setType(int type) {
         this.type = type;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
     public void cardPlayed(){
-        
+        BattleManager.playCard(this);
     }
     
     public void cardDrawn(Hand hand){

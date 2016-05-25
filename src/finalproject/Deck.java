@@ -3,21 +3,16 @@ package finalproject;
 import cards.templates.Card;
 import cards.TestCard1;
 import cards.TestCard2;
-import cards.templates.DataPacket;
-import java.io.BufferedReader;
 import java.io.File;
+import utillity.DataPacket;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utillity.LinkedList;
+import utillity.Settings;
 
 /**
  * Project:
@@ -106,34 +101,39 @@ public class Deck {
         }
     }
     
-    public void readDeck(String file) {
-        String s = null;
+    public Deck readDeck(String file) {
+        Deck d = null;
         try
         {
            FileInputStream fileIn = new FileInputStream(file);
            ObjectInputStream in = new ObjectInputStream(fileIn);
-           DataPacket<String> p = (DataPacket<String>) in.readObject();
-           s = p.getData();
+           DataPacket<Deck> p = (DataPacket<Deck>) in.readObject();
+           d = p.getData();
            in.close();
            fileIn.close();
         }catch(IOException i){
            i.printStackTrace();
-           return;
+           return null;
         }catch(ClassNotFoundException c){
            c.printStackTrace();
-           return;
+           return null;
         }
-        System.out.println(s);
+        System.out.println(d.toString());
+        return d;
     }
     
     public void saveDeck(){
         try{
-           FileOutputStream fileOut = new FileOutputStream("C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\GameSaves\\test.txt");
-           ObjectOutputStream out = new ObjectOutputStream(fileOut);
-           out.writeObject(new DataPacket<>("Hello, this is a test"));
-           out.close();
-           fileOut.close();
-            System.out.println("Deck saved");
+            File file = new File(Settings.saves);
+            if (file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(new DataPacket<>(this));
+            out.close();
+            fileOut.close();
+             System.out.println("Deck saved");
         }catch(IOException i){
             i.printStackTrace();
         }

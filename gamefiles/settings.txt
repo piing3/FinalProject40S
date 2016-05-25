@@ -1,0 +1,4 @@
+Hight: 1080
+Width: 720
+Fullscreen: false
+Saves: C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\test.txt

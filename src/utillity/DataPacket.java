@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package cards.templates;
+package utillity;
 
 import java.io.Serializable;
 

@@ -17,6 +17,7 @@ public class FinalProject {
     public static Game game;
     public static Menu menu;
     public final static String settings = "C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\settings.txt";
+    public static BattleManager battleManager;
     
     /**
      * @param args the command line arguments
@@ -34,7 +35,7 @@ public class FinalProject {
 //        });
 //        
 //        visuals.run();
-        Settings.readSettings(settings);
+        //Settings.readSettings(settings);
         window = new Window();
         game = new Game();
         menu = new Menu();
@@ -46,13 +47,13 @@ public class FinalProject {
     private static void startGame() { 
         
         Deck player = new Deck();
-        player.saveDeck();
-        player.readDeck(Settings.saves);
+        Deck.saveDeck(player);
+        //player = Deck.readDeck(Settings.saves);
         
-        Deck enemy = new Deck();
-        enemy.setDefault2();
-        
-        BattleManager battleManager = new BattleManager(player, enemy);
+        battleManager = new BattleManager(player);
+        battleManager.drawCard();
+        battleManager.drawCard();
+        battleManager.drawCard();
         
         finalproject.FinalProject.window.setVisible(true); 
     }

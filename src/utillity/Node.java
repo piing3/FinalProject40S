@@ -6,13 +6,15 @@
 
 package utillity;
 
+import java.io.Serializable;
+
 /**
  * Project:
  * Author: Davin
  * Date: 29-Apr-2016
  * Teacher: Mr. Wachs 
  */
-public class Node <T>{
+public class Node <T> implements Serializable{
     private T data;
     private Node next;
     private Node previous;

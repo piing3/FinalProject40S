@@ -27,10 +27,12 @@ public abstract class Settings {
         try {
             br = new BufferedReader(new FileReader(new File(path)));//new new new
             String line;
-            for (int i = 0; i < 6; i++) {
+            while(true){
                 line = br.readLine();
+                if(line == null) break;
+                
                 if(line.startsWith("Hight")){//This can't be the best way to do this.
-                    line = line.substring(line.indexOf(58)+1);
+                    line = line.substring(line.indexOf(58)+1);//58 = :
                     line = line.trim();
                     hight = Integer.parseInt(line);
                 }

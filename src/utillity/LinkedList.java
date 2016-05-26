@@ -1,5 +1,6 @@
 package utillity;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 
 /**
@@ -8,7 +9,7 @@ import java.lang.reflect.Array;
  * Date: 25-Apr-2016
  * Teacher: Mr. Wachs 
  */
-public class LinkedList <T>{
+public class LinkedList <T> implements Serializable{
 
     //add sublist(int, int)
     
@@ -190,6 +191,7 @@ public class LinkedList <T>{
     public void removeFirst(T data) {
         Node n = head;
         for (int i = 0; i < length; i++) {
+            if(n == null) return;
             if (n.getData().equals(data)){
                 removeData(data, i);
                 return;

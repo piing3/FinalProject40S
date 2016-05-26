@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Random;
 import utillity.LinkedList;
 import utillity.Settings;
@@ -20,7 +21,7 @@ import utillity.Settings;
  * Date: 7-Apr-2016
  * Teacher: Mr. Wachs 
  */
-public class Deck {
+public class Deck implements Serializable{
     
     // Globals-------------------
     
@@ -35,6 +36,7 @@ public class Deck {
     public Deck() {
         for (int i = 0; i < MAX_SIZE; i++) {
             addCard(new TestCard1());
+            CARDS.getData(i).visuals();
         }
     }
     
@@ -44,7 +46,10 @@ public class Deck {
      */
     public Card pickCard(){
         Random r = new Random();
-        Card c = CARDS.getData(r.nextInt(MAX_SIZE));
+        Card c = null;//CARDS.getData(r.nextInt(CARDS.getLength()))
+        while (c == null) {            
+            c = CARDS.getData(r.nextInt(CARDS.getLength()));
+        }
         return c;
     }
     
@@ -101,7 +106,7 @@ public class Deck {
         }
     }
     
-    public Deck readDeck(String file) {
+    public static Deck readDeck(String file) {
         Deck d = null;
         try
         {
@@ -122,18 +127,18 @@ public class Deck {
         return d;
     }
     
-    public void saveDeck(){
+    public static void saveDeck(Deck d){
         try{
             File file = new File(Settings.saves);
-            if (file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();
             }
-            FileOutputStream fileOut = new FileOutputStream(file);
+            FileOutputStream fileOut = new FileOutputStream(Settings.saves);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(new DataPacket<>(this));
+            out.writeObject(new DataPacket<>(d));
             out.close();
             fileOut.close();
-             System.out.println("Deck saved");
+            System.out.println("Deck saved");
         }catch(IOException i){
             i.printStackTrace();
         }

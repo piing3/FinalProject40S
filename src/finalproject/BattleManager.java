@@ -16,30 +16,33 @@ public class BattleManager {
 
 
     Deck playerDeck;
-    Deck enemyDeck;
     
     Hand playerHand;
-    Hand enemyHand;
     
     LinkedList<Minion> allMinions = new LinkedList<>();
     
-    public BattleManager(Deck player, Deck enemy) {
+    public BattleManager(Deck player) {
         playerDeck = player;
-        enemyDeck = enemy;
         
         playerHand = new Hand(playerDeck);
-        enemyHand = new Hand(playerDeck);
         
-        visuals.Hand handVisual = new visuals.Hand(playerHand);
-        handVisual.setLocation(0, game.getHeight()-handVisual.getHeight());
-        game.add(handVisual,0);
+        playerHand.visuals();
+        playerHand.setLocation(0, game.getHeight()-playerHand.getHeight());
+        game.add(playerHand,0);
         
     }
     
-    public static void playCard(Card card) {
-        for (int i = 0; i < 10; i++) {
-            
+    public void playCard(Card card) {
+        playerHand.removeCard(card);
+        card.cardPlayed();
+        for (int i = 0; i < allMinions.getLength(); i++) {
+            allMinions.getData(i).cardPlayInterupt();
         }
     }
-
+    
+    public void drawCard(){
+        Card c = playerDeck.pickCard();
+        playerHand.addCard(c);
+        playerDeck.removeCard(c);
+    }
 }

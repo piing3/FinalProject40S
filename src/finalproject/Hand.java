@@ -9,6 +9,16 @@ package finalproject;
 import cards.templates.Card;
 import cards.templates.Minion;
 import cards.TestCard1;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
+import utillity.LinkedList;
 
 /**
  * Project:
@@ -16,15 +26,14 @@ import cards.TestCard1;
  * Date: 6-Apr-2016
  * Teacher: Mr. Wachs 
  */
-public class Hand {
+public class Hand extends JPanel{
     
     // Globals-----------------
     
     public static final int MAX_SIZE = 10; 
     public static final int START_SIZE = 3; 
-    public final Card[] CARDS = new Card[MAX_SIZE];
+    public final LinkedList<Card> CARDS = new LinkedList<>();
     public final Deck deck;
-    private int count = 0;
     
     // Normal-----------------
 
@@ -34,18 +43,17 @@ public class Hand {
     public Hand() {
         deck = new Deck();
         for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS[i] = new TestCard1();
+            CARDS.addDataEnd(new TestCard1());
         }
+        visuals();
     }
     
     public Hand(Deck deck) {
         this.deck = deck;
-        for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS[i] = new TestCard1();
-        }
         for (int i = 0; i < START_SIZE; i++) {
             drawCard();
         }
+        visuals();
     }
     
     /**
@@ -55,11 +63,10 @@ public class Hand {
      * If the hand is full, the method ends before picking a card.
      */
     public void drawCard(){
-        boolean full = this.checkFull();
-        if(!full){
+        if(!checkFull()){
             Card newCard = deck.pickCard();
             deck.removeCard(newCard);
-            newCard.cardDrawn(this);
+            addCard(newCard);
         }
     }
     
@@ -71,19 +78,9 @@ public class Hand {
      * @param card The card to add. 
      */
     public void addCard(Card card){
-        if(count > 0){
-            count--;
-            CARDS[count] = card;
-        }
-    }
-    
-    /**
-     * Removes the top card from the hand.
-     */
-    public void removeCard(){
-        if(count < MAX_SIZE){
-            CARDS[count] = null;
-            count++;
+        if(!checkFull()){
+            CARDS.addDataEnd(card);
+            this.add(card);
         }
     }
     
@@ -92,12 +89,8 @@ public class Hand {
      * @param card The card to remove
      */
     public void removeCard(Card card){
-        for (int i = 0; i < MAX_SIZE; i++) {
-            if (CARDS[i].equals(card)) {
-                CARDS[i] = null;
-                sort();
-            }
-        }
+        CARDS.removeFirst(card);
+        this.remove(card);
     }
     
     /**
@@ -105,21 +98,7 @@ public class Hand {
      * @return True if the hand is full.
      */
     private boolean checkFull(){
-        for (int i = 0; i < MAX_SIZE; i++) {
-            if(CARDS[i] == null) return false;
-        }
-        return true;
-    }
-    
-    /**
-     * Sort the hand.
-     */
-    private void sort() {
-        for (int i = 0; i < MAX_SIZE; i++) {
-            if (true) {
-                
-            }
-        }
+        return CARDS.getLength() >=  MAX_SIZE;
     }
     
     // Utill--------------------------
@@ -131,7 +110,7 @@ public class Hand {
 
     public boolean equals(Hand hand) {
         for (int i = 0; i < MAX_SIZE; i++) {
-            if(!this.CARDS[i].equals(hand.CARDS[i])) return false; 
+            if(!this.CARDS.getData(i).equals(hand.CARDS.getData(i))) return false; 
         }
         return true; 
     }
@@ -140,12 +119,55 @@ public class Hand {
     public String toString() {
         String string = "";
         for (int i = 0; i < MAX_SIZE; i++) {
-            string += this.CARDS[i].toString()+", ";
+            string += this.CARDS.getData(i).toString()+", ";
         }
         string = string.substring(0, string.length()-2);
         return string;
     }
 
+    // Visual--------------------------
     
+    public void visuals(){
+        this.setLayout(new GridLayout(1, finalproject.Hand.MAX_SIZE));
+        this.setSize(finalproject.FinalProject.game.getWidth(), Card.HEIGHT);
+        this.setBackground(Color.gray);
+        
+        
+        MouseListener listener = new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                checkClick();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        };
+    }
+    
+    public void checkClick(){
+        int mX = MouseInfo.getPointerInfo().getLocation().x;
+        int mY = MouseInfo.getPointerInfo().getLocation().y;
+        for (int i = 0; i < MAX_SIZE; i++) {
+            if (CARDS.getData(i) != null) {
+                if (CARDS.getData(i).contains(mX, mY)) {
+                    System.out.println("poop");
+                }
+            }
+        }
+    }
     
 }

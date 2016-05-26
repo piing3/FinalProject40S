@@ -55,6 +55,8 @@ public class FinalProject {
         battleManager.drawCard();
         battleManager.drawCard();
         
+        BattleField bf = new BattleField();
+        
         finalproject.FinalProject.window.setVisible(true); 
     }
 

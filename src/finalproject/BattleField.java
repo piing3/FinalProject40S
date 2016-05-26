@@ -1,5 +1,7 @@
 package finalproject;
 
+import cards.templates.Card;
+import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
@@ -12,7 +14,10 @@ public class BattleField extends JPanel{
 
     public BattleField() {
         this.setLayout(null);
-        this.setBounds(0, WIDTH, WIDTH, WIDTH);
+        this.setBounds(0, Card.HEIGHT+40, FinalProject.window.getWidth(),
+                FinalProject.window.getHeight() - (2*(Card.HEIGHT+40)));
+        this.setBackground(utillity.Utill.TAN);
+        FinalProject.game.add(this, 0);
         
     }
     

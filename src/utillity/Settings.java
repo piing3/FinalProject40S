@@ -16,7 +16,7 @@ public abstract class Settings {
     
     public static int hight = 1080;
     public static int width = 720;
-    public static boolean fullscreen = false;
+    public static boolean fullscreen = false;//system.getScreenWorkingWidth
     public static String saves = "C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\test.txt" ;  
     
     

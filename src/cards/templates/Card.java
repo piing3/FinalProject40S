@@ -126,5 +126,8 @@ public abstract class Card extends JPanel implements Serializable{
 //        image.setLocation(0, 0);
 //        this.add(image);
         
+        
+        
+        
     }
 }

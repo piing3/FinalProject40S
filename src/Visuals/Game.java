@@ -6,7 +6,7 @@
 
 package visuals;
 
-import finalproject.Utill;
+import utillity.Utill;
 import finalproject.*;
 import java.awt.Color;
 import java.awt.Container;
@@ -52,7 +52,7 @@ public class Game extends Container{
         JPanel background = new JPanel();
         background.setSize(this.getSize());
         background.setLocation(0, 0);
-        background.setBackground(Utill.BROWN);
+        background.setBackground(Utill.ORANGE_BROWN);
         this.add(background);
     }
 

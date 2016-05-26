@@ -133,11 +133,10 @@ public class Hand extends JPanel{
         this.setBackground(Color.gray);
         
         
-        MouseListener listener = new MouseListener() {
+        MouseInputListener listener = new MouseInputListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                checkClick();
             }
 
             @Override
@@ -155,16 +154,28 @@ public class Hand extends JPanel{
             @Override
             public void mouseExited(MouseEvent e) {
             }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                System.out.println("poop");
+                checkClick(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+            }
         };
+        this.addMouseListener(listener);
     }
     
-    public void checkClick(){
-        int mX = MouseInfo.getPointerInfo().getLocation().x;
-        int mY = MouseInfo.getPointerInfo().getLocation().y;
+    public void checkClick(MouseEvent e){
+        int mX = e.getX();
+        System.out.println("Mouse :" + mX);
         for (int i = 0; i < MAX_SIZE; i++) {
             if (CARDS.getData(i) != null) {
-                if (CARDS.getData(i).contains(mX, mY)) {
-                    System.out.println("poop");
+                System.out.println(i+ " :" + CARDS.getData(i).getX());
+                if (mX >= CARDS.getData(i).getX() && mX <= CARDS.getData(i).getX()+ Card.WIDTH) {
+                    FinalProject.battleManager.playCard(CARDS.getData(i));
                 }
             }
         }

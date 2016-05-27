@@ -35,7 +35,7 @@ public class FinalProject {
 //        });
 //        
 //        visuals.run();
-        //Settings.readSettings(settings);
+        Settings.readSettings(settings);
         window = new Window();
         game = new Game();
         menu = new Menu();
@@ -48,7 +48,7 @@ public class FinalProject {
         
         Deck player = new Deck();
         Deck.saveDeck(player);
-        //player = Deck.readDeck(Settings.saves);
+        player = Deck.readDeck(Settings.saves);
         
         battleManager = new BattleManager(player);
         battleManager.drawCard();

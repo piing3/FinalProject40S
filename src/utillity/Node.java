@@ -101,7 +101,7 @@ public class Node <T> implements Serializable{
     @Override
     protected void finalize(){
         if(next != null) next.setPrevious(previous);
-        if(previous != null) next.setNext(next);
+        if(previous != null) previous.setNext(next);
         data = null;
         next = null;
         previous = null;

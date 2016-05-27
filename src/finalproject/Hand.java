@@ -81,6 +81,7 @@ public class Hand extends JPanel{
         if(!checkFull()){
             CARDS.addDataEnd(card);
             this.add(card);
+            FinalProject.game.repaint();
         }
     }
     
@@ -91,6 +92,7 @@ public class Hand extends JPanel{
     public void removeCard(Card card){
         CARDS.removeFirst(card);
         this.remove(card);
+        FinalProject.game.repaint();
     }
     
     /**
@@ -137,10 +139,12 @@ public class Hand extends JPanel{
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                checkClick(e);
             }
 
             @Override
@@ -157,8 +161,6 @@ public class Hand extends JPanel{
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                System.out.println("poop");
-                checkClick(e);
             }
 
             @Override
@@ -170,10 +172,8 @@ public class Hand extends JPanel{
     
     public void checkClick(MouseEvent e){
         int mX = e.getX();
-        System.out.println("Mouse :" + mX);
         for (int i = 0; i < MAX_SIZE; i++) {
             if (CARDS.getData(i) != null) {
-                System.out.println(i+ " :" + CARDS.getData(i).getX());
                 if (mX >= CARDS.getData(i).getX() && mX <= CARDS.getData(i).getX()+ Card.WIDTH) {
                     FinalProject.battleManager.playCard(CARDS.getData(i));
                 }

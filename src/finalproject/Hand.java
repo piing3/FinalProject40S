@@ -80,8 +80,7 @@ public class Hand extends JPanel{
     public void addCard(Card card){
         if(!checkFull()){
             CARDS.addDataEnd(card);
-            this.add(card);
-            FinalProject.game.repaint();
+            this.add(card, 0);
         }
     }
     
@@ -92,7 +91,6 @@ public class Hand extends JPanel{
     public void removeCard(Card card){
         CARDS.removeFirst(card);
         this.remove(card);
-        FinalProject.game.repaint();
     }
     
     /**
@@ -130,7 +128,7 @@ public class Hand extends JPanel{
     // Visual--------------------------
     
     public void visuals(){
-        this.setLayout(new GridLayout(1, finalproject.Hand.MAX_SIZE));
+        this.setLayout(new GridLayout(1, Hand.MAX_SIZE));
         this.setSize(finalproject.FinalProject.game.getWidth(), Card.HEIGHT);
         this.setBackground(Color.gray);
         

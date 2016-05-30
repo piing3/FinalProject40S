@@ -27,6 +27,7 @@ public class Window extends JFrame{
     public Window(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setUndecorated(false);
+        this.setResizable(true);
         
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             int width  = (int) screenSize.getWidth();

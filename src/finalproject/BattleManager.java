@@ -15,11 +15,10 @@ import utillity.LinkedList;
 public class BattleManager {
 
 
-    Deck playerDeck;
-    
+    Deck playerDeck;    
     Hand playerHand;
-    
     LinkedList<Minion> allMinions = new LinkedList<>();
+    BattleField bf = new BattleField();
     
     public BattleManager(Deck player) {
         playerDeck = player;
@@ -34,15 +33,27 @@ public class BattleManager {
     
     public void playCard(Card card) {
         playerHand.removeCard(card);
+        bf.addCard(card, true);
         card.cardPlayed();
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
         }
+        refresh();
     }
     
     public void drawCard(){
         Card c = playerDeck.pickCard();
         playerHand.addCard(c);
         playerDeck.removeCard(c);
+        c.cardDrawn();
+        for (int i = 0; i < allMinions.getLength(); i++) {
+            allMinions.getData(i).cardDrawInterupt();
+        }
+        refresh();
+    }
+    
+    public void refresh(){
+        FinalProject.game.repaint();
+        FinalProject.game.validate();
     }
 }

@@ -80,7 +80,7 @@ public class BattleField extends JPanel{// Needs to be recommented
      * Checks if the hand is full.
      * @return True if the hand is full.
      */
-    private boolean checkFull(boolean player){
+    public boolean checkFull(boolean player){
         if (player) return P_CARDS.getLength() >=  MAX_SIZE;
         else return O_CARDS.getLength() >=  MAX_SIZE;
         

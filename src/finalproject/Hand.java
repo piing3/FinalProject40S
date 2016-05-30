@@ -129,6 +129,7 @@ public class Hand extends JPanel{
     
     public void visuals(){
         this.setLayout(new GridLayout(1, Hand.MAX_SIZE));
+        this.setLocation(0, 0);
         this.setSize(finalproject.FinalProject.game.getWidth(), Card.HEIGHT);
         this.setBackground(Color.gray);
         
@@ -170,8 +171,9 @@ public class Hand extends JPanel{
     
     public void checkClick(MouseEvent e){
         int mX = e.getX();
-        for (int i = 0; i < MAX_SIZE; i++) {
+        for (int i = 0; i < CARDS.getLength(); i++) {
             if (CARDS.getData(i) != null) {
+                System.out.println(CARDS.getData(i).getX());
                 if (mX >= CARDS.getData(i).getX() && mX <= CARDS.getData(i).getX()+ Card.WIDTH) {
                     FinalProject.battleManager.playCard(CARDS.getData(i));
                 }

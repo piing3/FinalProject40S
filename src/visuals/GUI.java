@@ -11,7 +11,7 @@ import javax.swing.JButton;
  * Date: 30-May-2016
  * Teacher: Mr. Wachs 
  */
-public class GUI extends Container{
+public class GUI{
 
     public GUI() {
         drawButton();
@@ -28,6 +28,6 @@ public class GUI extends Container{
                 finalproject.FinalProject.battleManager.drawCard();
             }
         });
-        this.add(jb);
+        finalproject.FinalProject.game.add(jb,0);
     }
 }

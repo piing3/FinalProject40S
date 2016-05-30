@@ -1,6 +1,7 @@
 package cards.templates;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -112,13 +113,18 @@ public abstract class Card extends JPanel implements Serializable{
         
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(new Color(0, 0, 0, 0));
+        this.setLayout(null);
         
         cardBackround = new ImageIcon("src\\Images\\NeutralCardBackround.png");
         JLabel backround = new JLabel();
         backround.setIcon(cardBackround);
-        backround.setPreferredSize(this.getPreferredSize());
+        backround.setSize(this.getPreferredSize());
         backround.setLocation(0, 00);
         this.add(backround, 0);
+        
+        JLabel costLabel = new JLabel(""+this.cost);
+        costLabel.setBounds(3, 6, 10, 10);
+        this.add(costLabel,0);
         
 //        cardImage = new ImageIcon("src\\Images\\BlankCardImage.png");
 //        JLabel image = new JLabel(cardImage);

@@ -43,6 +43,8 @@ public class FinalProject {
         menu = new Menu();
         gui = new GUI();
         startGame();
+        
+        window.setContentPane(menu);
 
     }
 
@@ -53,9 +55,9 @@ public class FinalProject {
         player = Deck.readDeck(Settings.saves);
         
         battleManager = new BattleManager(player);
-        battleManager.drawCard();
-        battleManager.drawCard();
-        battleManager.playCard(battleManager.playerHand.CARDS.getData(0));
+        //battleManager.drawCard();
+        //battleManager.drawCard();
+        //battleManager.playCard(battleManager.playerHand.CARDS.getData(0));
         
         finalproject.FinalProject.window.setVisible(true); 
     }

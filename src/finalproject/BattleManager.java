@@ -32,6 +32,10 @@ public class BattleManager {
     }
     
     public void playCard(Card card) {
+        if(bf.checkFull(true)){
+            System.out.println("Your board is too full!");
+            return;
+        }
         playerHand.removeCard(card);
         bf.addCard(card, true);
         card.cardPlayed();

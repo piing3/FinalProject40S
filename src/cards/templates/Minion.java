@@ -1,5 +1,7 @@
 package cards.templates;
 
+import javax.swing.JLabel;
+
 /**
  * Purpose: 
  * @Date
@@ -76,6 +78,17 @@ public abstract class Minion extends Card{
         if (this.type != minion.type) return false;
         if (!this.name.equals(minion.name)) return false;
         return true;
+    }
+
+    @Override
+    public void visuals() {
+        super.visuals();
+        JLabel attackLabel = new JLabel(""+this.attack);
+        attackLabel.setBounds(3, 84, 10, 10);
+        this.add(attackLabel,0);
+        JLabel healthLabel = new JLabel(""+this.health);
+        healthLabel.setBounds(89, 84, 10, 10);
+        this.add(healthLabel,0);
     }
     
     

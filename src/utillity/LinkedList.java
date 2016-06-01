@@ -145,6 +145,9 @@ public class LinkedList <T> implements Serializable{
             n = n.getNext();
             if(n == null) return null;
         }
+        if (n==null) {
+            System.out.println("error");
+        }
         return (T) n.getData();
     }
     

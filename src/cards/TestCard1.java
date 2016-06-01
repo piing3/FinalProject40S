@@ -11,6 +11,7 @@ import cards.templates.Minion;
 public class TestCard1 extends Minion{
 
     public TestCard1() {
+        this.visuals();
         this.setName("Poop");
         
         this.setAttack(2);

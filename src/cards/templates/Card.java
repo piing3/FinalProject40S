@@ -25,9 +25,8 @@ public abstract class Card extends JPanel implements Serializable{
     protected String text;
     
     private JLabel costLabel;
-    
-    private ImageIcon cardBackround;
-    private ImageIcon cardImage;
+    private JLabel cardBackround;
+    private JLabel cardImage;
     
     public static final int WIDTH = 100;
     public static final int HEIGHT = 160;
@@ -53,6 +52,7 @@ public abstract class Card extends JPanel implements Serializable{
 
     public void setCost(int cost) {
         this.cost = cost;
+        costLabel.setText(""+this.cost);
     }
 
     public void setType(int type) {
@@ -114,28 +114,29 @@ public abstract class Card extends JPanel implements Serializable{
         this.setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
         
-        cardBackround = new ImageIcon("src\\Images\\NeutralCardBackround.png");
-        JLabel backround = new JLabel();
-        backround.setIcon(cardBackround);
-        backround.setSize(this.getPreferredSize());
-        backround.setLocation(0, 0);
-        this.add(backround, 0);
+        cardBackround = new JLabel();
+        cardBackround.setIcon(new ImageIcon("src\\Images\\NeutralCardBackround.png"));
+        cardBackround.setSize(this.getPreferredSize());
+        cardBackround.setLocation(0, 0);
+        this.add(cardBackround, 0);
         
         costLabel = new JLabel(""+this.cost);
         costLabel.setBounds(0, 7, 15, 10);
         costLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(costLabel,0);
         
-        cardImage = new ImageIcon("src\\Images\\BlankCardImage.png");
-        JLabel image = new JLabel(cardImage);
-        image.setSize(this.getSize());
-        image.setLocation(16, 12);
-        this.add(image);
+ 
+        cardImage = new JLabel(new ImageIcon("src\\Images\\BlankCardImage.png"));
+        cardImage.setSize(69,69);
+        cardImage.setLocation(16, 17);
+        this.add(cardImage,0);
     }
     
-    public void 
+    public void setBackround(ImageIcon icon){
+        cardBackround.setIcon(icon);
+    }
     
-    public void setBackround(){
-        
+    public void setImage(ImageIcon icon){
+        cardImage.setIcon(icon);
     }
 }

@@ -37,7 +37,7 @@ public class BattleManager {
         }
         playerHand.removeCard(card);
         if (card instanceof Minion) {
-            bf.addCard((Minion)card, false);
+            bf.addCard((Minion)card, true);
         }
         card.cardPlayed();
         for (int i = 0; i < allMinions.getLength(); i++) {
@@ -66,7 +66,13 @@ public class BattleManager {
         for (int i = 0; i < bf.P_CARDS.getLength(); i++) {
             Minion m = bf.P_CARDS.getData(i);
             m.setAttack(m.getAttack()+1);
+            m.setHealth(m.getHealth()+1);
             refresh();
         }
+//        for (int i = 0; i < bf.O_CARDS.getLength(); i++) {
+//            Minion m = bf.P_CARDS.getData(i);
+//            m.setAttack(m.getAttack()+1);
+//            refresh();
+//        }
     }
 }

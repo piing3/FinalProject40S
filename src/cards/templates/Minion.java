@@ -68,7 +68,7 @@ public abstract class Minion extends Card{
      */
     public void setHealth(int health) {
         this.health = health;
-        healthLabel.setText(""+attack);
+        healthLabel.setText(""+health);
     }
     
     @Override

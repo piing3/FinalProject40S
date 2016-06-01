@@ -1,5 +1,6 @@
 package finalproject;
 
+import cards.SanicCard;
 import cards.templates.Card;
 import cards.TestCard1;
 import cards.TestCard2;
@@ -34,10 +35,6 @@ public class Deck implements Serializable{
      * Makes a new blank deck.
      */
     public Deck() {
-        for (int i = 0; i < MAX_SIZE; i++) {
-            addCard(new TestCard1());
-            CARDS.getData(i).visuals();
-        }
     }
     
     /**
@@ -95,8 +92,13 @@ public class Deck implements Serializable{
     }
     
     public void setDefault1(){
+        Random r= new Random();
         for (int i = 0; i < MAX_SIZE; i++) {
-            addCard(new TestCard1());
+            int i = r.nextInt(2)
+            if{
+               
+            addCard(new SanicCard()); 
+            }
         }
     }
     

@@ -51,6 +51,7 @@ public class FinalProject {
     private static void startGame() { 
         
         Deck player = new Deck();
+        player.setDefault1();
         Deck.saveDeck(player);
         player = Deck.readDeck(Settings.saves);
         

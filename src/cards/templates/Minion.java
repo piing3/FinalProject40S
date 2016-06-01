@@ -1,6 +1,7 @@
 package cards.templates;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  * Purpose: 
@@ -16,6 +17,9 @@ public abstract class Minion extends Card{
     protected boolean sheild;
     protected boolean charge;
     
+    protected JLabel attackLabel = new JLabel(""+this.attack);;
+    protected JLabel healthLabel = new JLabel(""+this.health);;
+
     
     
     public void cardAttack(){
@@ -55,6 +59,7 @@ public abstract class Minion extends Card{
      */
     public void setAttack(int attack) {
         this.attack = attack;
+        attackLabel.setText(""+attack);
     }
     
     /**
@@ -63,6 +68,7 @@ public abstract class Minion extends Card{
      */
     public void setHealth(int health) {
         this.health = health;
+        healthLabel.setText(""+attack);
     }
     
     @Override
@@ -83,11 +89,14 @@ public abstract class Minion extends Card{
     @Override
     public void visuals() {
         super.visuals();
-        JLabel attackLabel = new JLabel(""+this.attack);
-        attackLabel.setBounds(3, 84, 10, 10);
+        attackLabel = new JLabel(""+this.attack);
+        attackLabel.setBounds(0, 84, 15, 10);
+        attackLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(attackLabel,0);
-        JLabel healthLabel = new JLabel(""+this.health);
-        healthLabel.setBounds(89, 84, 10, 10);
+        
+        healthLabel = new JLabel(""+this.health);
+        healthLabel.setBounds(85, 84, 15, 10);
+        healthLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(healthLabel,0);
     }
     

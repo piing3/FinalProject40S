@@ -15,12 +15,13 @@ public class GUI{
 
     public GUI() {
         drawButton();
+        testButton();
     }
     
     
     public void drawButton(){
         JButton jb = new JButton("Draw");
-        jb.setBounds(58, 99, 50, 50);
+        jb.setBounds(58, 99, 100, 50);
         jb.addActionListener(new ActionListener() {
 
             @Override
@@ -29,5 +30,18 @@ public class GUI{
             }
         });
         finalproject.FinalProject.game.add(jb,0);
+    }
+    
+    public void testButton(){
+        JButton test = new JButton("Test");
+        test.setBounds(200, 99, 100, 50);
+        test.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                finalproject.FinalProject.battleManager.testing();
+            }
+        });
+        finalproject.FinalProject.game.add(test,0);
     }
 }

@@ -25,7 +25,6 @@ public class BattleManager {
         
         playerHand = new Hand(playerDeck);
         
-        playerHand.visuals();
         playerHand.setLocation(0, game.getHeight()-playerHand.getHeight());
         game.add(playerHand,0);
         
@@ -37,7 +36,9 @@ public class BattleManager {
             return;
         }
         playerHand.removeCard(card);
-        bf.addCard(card, true);
+        if (card instanceof Minion) {
+            bf.addCard((Minion)card, false);
+        }
         card.cardPlayed();
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
@@ -59,5 +60,13 @@ public class BattleManager {
     public void refresh(){
         FinalProject.game.repaint();
         FinalProject.game.validate();
+    }
+    
+    public void testing(){
+        for (int i = 0; i < bf.P_CARDS.getLength(); i++) {
+            Minion m = bf.P_CARDS.getData(i);
+            m.setAttack(m.getAttack()+1);
+            refresh();
+        }
     }
 }

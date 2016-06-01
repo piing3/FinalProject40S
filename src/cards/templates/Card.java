@@ -1,17 +1,13 @@
 package cards.templates;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.Serializable;
-import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.SwingConstants;
 
 /**
  * Project:
@@ -25,9 +21,16 @@ public abstract class Card extends JPanel implements Serializable{
     
     protected int cost;
     protected int type;
-    protected Image image;
     protected String name;
     protected String text;
+    
+    private JLabel costLabel;
+    
+    private ImageIcon cardBackround;
+    private ImageIcon cardImage;
+    
+    public static final int WIDTH = 100;
+    public static final int HEIGHT = 160;
     
     
     // Normal-----------------
@@ -104,11 +107,7 @@ public abstract class Card extends JPanel implements Serializable{
     
     // Visuals--------------------
     
-    ImageIcon cardBackround;
-    ImageIcon cardImage;
-    public static final int WIDTH = 100;
-    public static final int HEIGHT = 160;
-    
+
     public void visuals() {
         
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -119,21 +118,24 @@ public abstract class Card extends JPanel implements Serializable{
         JLabel backround = new JLabel();
         backround.setIcon(cardBackround);
         backround.setSize(this.getPreferredSize());
-        backround.setLocation(0, 00);
+        backround.setLocation(0, 0);
         this.add(backround, 0);
         
-        JLabel costLabel = new JLabel(""+this.cost);
-        costLabel.setBounds(3, 6, 10, 10);
+        costLabel = new JLabel(""+this.cost);
+        costLabel.setBounds(0, 7, 15, 10);
+        costLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(costLabel,0);
         
-//        cardImage = new ImageIcon("src\\Images\\BlankCardImage.png");
-//        JLabel image = new JLabel(cardImage);
-//        image.setSize(this.getSize());
-//        image.setLocation(0, 0);
-//        this.add(image);
-        
-        
-        
+        cardImage = new ImageIcon("src\\Images\\BlankCardImage.png");
+        JLabel image = new JLabel(cardImage);
+        image.setSize(this.getSize());
+        image.setLocation(16, 12);
+        this.add(image);
+    }
+    
+    public void 
+    
+    public void setBackround(){
         
     }
 }

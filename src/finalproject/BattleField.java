@@ -2,7 +2,10 @@ package finalproject;
 
 import cards.TestCard1;
 import cards.templates.Card;
+import cards.templates.Minion;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +27,10 @@ public class BattleField extends JPanel{// Needs to be recommented
     
     public static final int MAX_SIZE = 10; 
     public static final int START_SIZE = 3; 
-    public final LinkedList<Card> P_CARDS = new LinkedList<>();
-    public final LinkedList<Card> O_CARDS = new LinkedList<>();
+    public final LinkedList<Minion> P_CARDS = new LinkedList<>();
+    public final LinkedList<Minion> O_CARDS = new LinkedList<>();
+    private JPanel P_Minions;
+    private JPanel O_Minions; 
     
     // Normal-----------------
     
@@ -38,19 +43,19 @@ public class BattleField extends JPanel{// Needs to be recommented
      * 
      * Ends if the hand is full.
      * 
-     * @param card The card to add. 
+     * @param minion The card to add. 
      */
-    public void addCard(Card card, boolean player){
+    public void addCard(Minion minion, boolean player){
         if (player) {
             if(!checkFull(player)){
-                P_CARDS.addDataEnd(card);
-                this.add(card, 0);
+                P_CARDS.addDataEnd(minion);
+                P_Minions.add(minion, 0);
             }
         }
         else{
             if(!checkFull(player)){
-                O_CARDS.addDataEnd(card);
-                this.add(card, 0);
+                O_CARDS.addDataEnd(minion);
+                O_Minions.add(minion, 0);
             }
         }
         
@@ -61,18 +66,18 @@ public class BattleField extends JPanel{// Needs to be recommented
      * @param card The card to remove
      */
     public void removeCard(Card card, boolean player){
-        if (player) {
-            if(!checkFull(player)){
-                P_CARDS.removeFirst(card);
-                this.remove(card);
-            }
-        }
-        else{
-            if(!checkFull(player)){
-                O_CARDS.addDataEnd(card);
-                this.add(card, 0);
-            }
-        }
+//        if (player) {
+//            if(!checkFull(player)){
+//                P_CARDS.removeFirst(card);
+//                this.remove(card);
+//            }
+//        }
+//        else{
+//            if(!checkFull(player)){
+//                O_CARDS.addDataEnd(card);
+//                this.remove(card);
+//            }
+//        }
 
     }
     
@@ -113,11 +118,21 @@ public class BattleField extends JPanel{// Needs to be recommented
     // Visual--------------------------
     
     public void visuals(){
-        this.setLayout(new GridLayout(1, BattleField.MAX_SIZE));
+        this.setLayout(new GridLayout(2, 1));
         this.setBounds(0, Card.HEIGHT+40, FinalProject.window.getWidth(),
                 FinalProject.window.getHeight() - (2*(Card.HEIGHT+40)));
         this.setBackground(utillity.Utill.TAN);
         FinalProject.game.add(this, 0);
+        
+        O_Minions = new JPanel(new GridLayout(1, BattleField.MAX_SIZE));
+        O_Minions.setBounds(0, 0, this.getWidth(), Card.HEIGHT);
+        O_Minions.setBackground(new Color(0, 0, 0, 0));
+        this.add(O_Minions,0);
+        
+        P_Minions = new JPanel(new GridLayout(1, BattleField.MAX_SIZE));
+        P_Minions.setBounds(0, Card.HEIGHT+20, this.getWidth(), Card.HEIGHT);
+        P_Minions.setBackground(new Color(0, 0, 0, 0));
+        this.add(P_Minions,1);
     }
 
 }

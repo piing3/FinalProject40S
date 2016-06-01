@@ -167,13 +167,13 @@ public class Hand extends JPanel{
             }
         };
         this.addMouseListener(listener);
+        System.out.println(this.getMouseListeners().length);
     }
     
     public void checkClick(MouseEvent e){
         int mX = e.getX();
         for (int i = 0; i < CARDS.getLength(); i++) {
             if (CARDS.getData(i) != null) {
-                System.out.println(CARDS.getData(i).getX());
                 if (mX >= CARDS.getData(i).getX() && mX <= CARDS.getData(i).getX()+ Card.WIDTH) {
                     FinalProject.battleManager.playCard(CARDS.getData(i));
                 }

@@ -139,4 +139,7 @@ public abstract class Card extends JPanel implements Serializable{
     public void setImage(ImageIcon icon){
         cardImage.setIcon(icon);
     }
+
+    public void setTarget(Minion data) {
+    }
 }

@@ -1,9 +1,7 @@
 package finalproject;
 
-import cards.SanicCard;
+import cards.*;
 import cards.templates.Card;
-import cards.TestCard1;
-import cards.TestCard2;
 import java.io.File;
 import utillity.DataPacket;
 import java.io.FileInputStream;
@@ -94,11 +92,9 @@ public class Deck implements Serializable{
     public void setDefault1(){
         Random r= new Random();
         for (int i = 0; i < MAX_SIZE; i++) {
-            int i = r.nextInt(2)
-            if{
-               
-            addCard(new SanicCard()); 
-            }
+            int rand = r.nextInt(2);
+            if(rand == 0)addCard(new SanicCard());
+            if(rand == 1)addCard(new BananaCard());
         }
     }
     

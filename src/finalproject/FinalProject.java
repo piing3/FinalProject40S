@@ -37,7 +37,7 @@ public class FinalProject {
 //        });
 //        
 //        visuals.run();
-        Settings.readSettings(settings);
+//        Settings.readSettings(settings);
         window = new Window();
         game = new Game();
         menu = new Menu();

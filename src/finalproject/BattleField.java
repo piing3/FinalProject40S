@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
@@ -31,6 +32,9 @@ public class BattleField extends JPanel{// Needs to be recommented
     public final LinkedList<Minion> O_CARDS = new LinkedList<>();
     private JPanel P_Minions;
     private JPanel O_Minions; 
+    
+    int target;
+    int attacker;
     
     // Normal-----------------
     
@@ -133,6 +137,61 @@ public class BattleField extends JPanel{// Needs to be recommented
         P_Minions.setBounds(0, Card.HEIGHT+20, this.getWidth(), Card.HEIGHT);
         P_Minions.setBackground(new Color(0, 0, 0, 0));
         this.add(P_Minions,1);
+        
+        MouseListener listener = new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                checkClick(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        };
+        this.addMouseListener(listener);
+    }
+     
+    private void checkClick(MouseEvent e){
+        int mX = e.getX();
+        if (e.getY() < Card.HEIGHT) {
+            for (int i = 0; i < O_CARDS.getLength(); i++) {
+                if (O_CARDS.getData(i) != null) {
+                    if (mX >= O_CARDS.getData(i).getX() && mX <= O_CARDS.getData(i).getX()+ Card.WIDTH) {
+                        
+                        target = i;
+                        FinalProject.battleManager.minionClicked(false);
+                    }
+                }
+            }
+        }else{
+            for (int i = 0; i < P_CARDS.getLength(); i++) {
+                if (P_CARDS.getData(i) != null) {
+                    if (mX >= P_CARDS.getData(i).getX() && mX <= P_CARDS.getData(i).getX()+ Card.WIDTH) {
+                        
+                        target = i;
+                        //System.out.println(P_CARDS.getData(i).toString());
+                        FinalProject.battleManager.minionClicked(true);
+                    }
+                }
+            }
+        }
+    }
+    
+    public void forceSelect(){
+        
     }
 
 }

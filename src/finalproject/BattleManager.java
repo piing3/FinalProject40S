@@ -2,6 +2,7 @@ package finalproject;
 
 import Multiplayer.Action;
 import Multiplayer.Game;
+import cards.SanicCard;
 import cards.templates.Card;
 import cards.templates.Minion;
 import cards.templates.Spell;
@@ -36,7 +37,6 @@ public class BattleManager {
     
     public void playCard(Card card) {
         playCard(card, true);
-        Game.sending = new Action(true, card, -1, -1);
     }
     
     public void playCard(Card card, boolean b) {
@@ -52,6 +52,7 @@ public class BattleManager {
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
         }
+        Game.sending = new Action(true, card, -1, -1);
         refresh();
     }
     
@@ -72,17 +73,7 @@ public class BattleManager {
     }
     
     public void testing(){
-        for (int i = 0; i < bf.P_CARDS.getLength(); i++) {
-            Minion m = bf.P_CARDS.getData(i);
-            m.setAttack(m.getAttack()+1);
-            m.setHealth(m.getHealth()+1);
-            refresh();
-        }
-//        for (int i = 0; i < bf.O_CARDS.getLength(); i++) {
-//            Minion m = bf.P_CARDS.getData(i);
-//            m.setAttack(m.getAttack()+1);
-//            refresh();
-//        }
+        this.playCard(new SanicCard(), false);
     }
 
     public void IO(Action action) {
@@ -91,6 +82,16 @@ public class BattleManager {
                 action.card.setTarget(allMinions.getData(action.minion1));
             }
             playCard(action.card, false);
+        }
+    }
+
+    public void minionClicked(boolean b) {
+        if (b) {
+            Minion c = bf.P_CARDS.getData(bf.target);
+            if (c.isReady()) {
+                bf.forceSelect();
+                c.attack();
+            }
         }
     }
 

@@ -14,7 +14,7 @@ public abstract class Minion extends Card{
     protected int health;
     protected int attack;
     protected boolean ready;
-    protected boolean sheild;
+    protected boolean shield;
     protected boolean charge;
     
     protected JLabel attackLabel = new JLabel(""+this.attack);;
@@ -99,10 +99,23 @@ public abstract class Minion extends Card{
         healthLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(healthLabel,0);
     }
-    
-    
 
- 
+    public boolean isCharge() {
+        return charge;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public boolean isShield() {
+        return shield;
+    }
+
+    public void attack() {
+    }
+    
+    
 
     
     

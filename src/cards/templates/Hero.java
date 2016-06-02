@@ -6,6 +6,6 @@ package cards.templates;
  * @author Davin
  * Teacher: Mr. Wachs
  */
-public abstract class Hero extends Card{
+public abstract class Hero extends Minion{
 
 }

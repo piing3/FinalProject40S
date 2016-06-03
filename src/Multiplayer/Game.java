@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 import utillity.DataPacket;
+import visuals.Menu;
 
 /**
  * Purpose: 
@@ -63,9 +64,19 @@ public class Game {
                         if (in == null) {
                             in = new ObjectInputStream(socket.getInputStream());
                         }
-                        DataPacket<Action> inMessage = (DataPacket<Action>) in.readObject();
-                        receiving = (inMessage.getData());
-                        finalproject.FinalProject.battleManager.IO(receiving);
+                        DataPacket<Object> inMessage = (DataPacket<Object>) in.readObject();
+                        if (inMessage.getData() instanceof String) {
+                            String s = (String)inMessage.getData();
+                            if (s.equalsIgnoreCase("exit")) System.exit(0);
+                            if (s.equalsIgnoreCase("menu")){
+                                finalproject.FinalProject.window.setContentPane(new Menu());
+                                finalproject.FinalProject.startGame();
+                            }
+                        }
+                        if (inMessage.getData() instanceof Action) {
+                            receiving = (Action)inMessage.getData();
+                            finalproject.FinalProject.battleManager.IO(receiving);
+                        }
                         
                     } catch (java.net.SocketException ex) {
                         System.out.println("Connection lost");

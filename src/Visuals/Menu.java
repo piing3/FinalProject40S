@@ -2,6 +2,7 @@ package visuals;
 
 import utillity.Utill;
 import finalproject.*;
+import static finalproject.FinalProject.game;
 import java.awt.Container;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -22,6 +23,9 @@ public class Menu extends Container{
         this.setSize(FinalProject.window.getSize());
         this.setLocation(0, 0);
         makeBackground();
+                
+        FinalProject.game = new Game();
+        GUI gui = new GUI();
         
         JButton start = new JButton();        
         start.setSize(500, 532);
@@ -33,7 +37,7 @@ public class Menu extends Container{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                 FinalProject.window.setContentPane(FinalProject.game);
+                FinalProject.window.setContentPane(FinalProject.game);
             }
         });
     }

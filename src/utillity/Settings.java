@@ -17,7 +17,8 @@ public abstract class Settings {
     public static int height = 720;
     public static int width = 1280;
     public static boolean fullscreen = false;//system.getScreenWorkingWidth
-    public static String saves = "C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\test.txt" ; // "C:\\Users\\Davin\\Desktop\\FinalProject40S\\gamefiles\\test.txt";
+//    public static String saves = "C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\test.txt" ; 
+    public static String saves = "C:\\Users\\Davin\\Desktop\\FinalProject40S\\gamefiles\\test.txt";
     
     
     public static void readSettings(String path) {

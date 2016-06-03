@@ -47,31 +47,47 @@ public class Client extends Thread{
 
                 DataPacket<Action> outMessage = new DataPacket<>(/*names[i]+": "+*/input);
 
-
-
-
-                //***********************
-                for (ObjectOutputStream out : outs) {
-                    if (out != null && out != outs[i]) {
-                        out.writeObject(outMessage);
-                        out.flush();    //remember to flush the stream
-                    }
-                }
+                sendData(outMessage);
             }catch(java.net.SocketException e){
                 sockets[i] = null;
                 outs[i] = null;
                 ins[i] = null;
                 System.out.println("Socket #"+i+", "+/*names[i]+*/", disconected");
-                continue;
+                sendData(new DataPacket<>("menu"));
+                wipeSockets();
+    
+            }  catch (ClassNotFoundException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 System.out.println("IO Exception");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
 //            catch (Exception ex) {
 //                System.out.println("Error: " + ex);
 //                continue;
 //            }            
         }
+    }
+    
+    public <T> void  sendData(T data){
+        for (ObjectOutputStream out : outs) {
+            if (out != null && out != outs[i]) {
+                try {
+                    out.writeObject(data);
+                    out.flush();
+                    
+                } catch (IOException ex) {
+                    System.out.println("IO Exception");
+                }
+            }
+        }
+    }
+
+    private void wipeSockets() {
+        for (int j = 0; j < sockets.length; j++) {
+            sockets[i] = null;
+            outs[i] = null;
+            ins[i] = null;
+        }
+        System.out.println("Sockets wiped");
     }
 }

@@ -52,7 +52,7 @@ public class BattleManager {
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
         }
-        Game.sending = new Action(true, card, -1, -1);
+        if(b) Game.sending = new Action(true, card, -1, -1);
         refresh();
     }
     

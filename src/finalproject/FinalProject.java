@@ -16,7 +16,6 @@ import visuals.Window;
 public class FinalProject {
     public static Window window;
     public static Game game;
-    public static Menu menu;
     public static GUI gui;
     public final static String settings = "C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\settings.txt";
     public static BattleManager battleManager;
@@ -38,17 +37,15 @@ public class FinalProject {
 //        
 //        visuals.run();
 //        Settings.readSettings(settings);
+        
         window = new Window();
-        game = new Game();
-        menu = new Menu();
-        gui = new GUI();
+        window.setContentPane(new Menu());
         startGame();
         
-        window.setContentPane(menu);
 
     }
 
-    private static void startGame() { 
+    public static void startGame() { 
         
         Deck player = new Deck();
         player.setDefault1();

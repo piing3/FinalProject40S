@@ -42,12 +42,14 @@ public class Client extends Thread{
 //                }
                 
                 Action input = (Action) inMessage.getData();
-      
-                //System.out.println("Output:"+input);
+                if (input.text != null) {
+                    //string inputs
+                }
+                else{   
+                    DataPacket<Action> outMessage = new DataPacket<>(/*names[i]+": "+*/input);
+                    sendData(outMessage);
+                }
 
-                DataPacket<Action> outMessage = new DataPacket<>(/*names[i]+": "+*/input);
-
-                sendData(outMessage);
             }catch(java.net.SocketException e){
                 sockets[i] = null;
                 outs[i] = null;

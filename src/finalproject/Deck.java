@@ -92,15 +92,16 @@ public class Deck implements Serializable{
     public void setDefault1(){
         Random r= new Random();
         for (int i = 0; i < MAX_SIZE; i++) {
-            int rand = r.nextInt(2);
-            if(rand == 0)addCard(new SanicCard());
-            if(rand == 1)addCard(new BananaCard());
+            int rand = r.nextInt(3);
+            if(rand == 0)addCard(new SanicMinion());
+            if(rand == 1)addCard(new BananaSpell());
+            if(rand == 2)addCard(new BushMinion());
         }
     }
     
     public void setDefault2(){
         for (int i = 0; i < MAX_SIZE; i++) {
-            addCard(new TestCard2());
+            addCard(new BananaSpell());
         }
     }
     

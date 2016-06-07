@@ -64,16 +64,16 @@ public class Game {
                         if (in == null) {
                             in = new ObjectInputStream(socket.getInputStream());
                         }
-                        DataPacket<Object> inMessage = (DataPacket<Object>) in.readObject();
-                        if (inMessage.getData() instanceof String) {
-                            String s = (String)inMessage.getData();
+                        DataPacket<Action> inMessage = (DataPacket<Action>) in.readObject();
+                        if (inMessage.getData().text != null) {
+                            String s = inMessage.getData().text;
                             if (s.equalsIgnoreCase("exit")) System.exit(0);
                             if (s.equalsIgnoreCase("menu")){
                                 finalproject.FinalProject.window.setContentPane(new Menu());
                                 finalproject.FinalProject.startGame();
                             }
                         }
-                        if (inMessage.getData() instanceof Action) {
+                        else {
                             receiving = (Action)inMessage.getData();
                             finalproject.FinalProject.battleManager.IO(receiving);
                         }

@@ -15,17 +15,17 @@ import javax.swing.ImageIcon;
  * Date: 1-Jun-2016
  * Teacher: Mr. Wachs 
  */
-public class BushCard extends Minion{
+public class BananaMinion extends Minion{
     
     
-    public BushCard() {
+    public BananaMinion() {
         this.visuals();
-        this.setName("Bush");
+        this.setName("Minion");
         
-        this.setAttack(10);
-        this.setHealth(1);
-        this.setCost(4);
+        this.setAttack(1);
+        this.setHealth(3);
+        this.setCost(2);
         
-        this.setImage(new ImageIcon("src\\Images\\CardIcons\\BushCardImage.png"));
+        this.setImage(new ImageIcon("src\\Images\\CardIcons\\Minion1CardImage.png"));
     }
 }

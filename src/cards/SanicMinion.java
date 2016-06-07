@@ -15,10 +15,10 @@ import javax.swing.ImageIcon;
  * Date: 1-Jun-2016
  * Teacher: Mr. Wachs 
  */
-public class SanicCard extends Minion{
+public class SanicMinion extends Minion{
     
     
-    public SanicCard() {
+    public SanicMinion() {
         this.visuals();
         this.setName("Sanic");
         

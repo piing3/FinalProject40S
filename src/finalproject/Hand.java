@@ -6,16 +6,13 @@
 
 package finalproject;
 
+import cards.Banana2Minion;
+import cards.BananaSpell;
 import cards.templates.Card;
 import cards.templates.Minion;
-import cards.TestCard1;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.MouseInfo;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 import utillity.LinkedList;
@@ -43,7 +40,7 @@ public class Hand extends JPanel{
     public Hand() {
         deck = new Deck();
         for (int i = 0; i < MAX_SIZE; i++) {
-            CARDS.addDataEnd(new TestCard1());
+            CARDS.addDataEnd(new BananaSpell());
         }
         visuals();
     }

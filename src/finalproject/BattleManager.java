@@ -2,7 +2,7 @@ package finalproject;
 
 import Multiplayer.Action;
 import Multiplayer.Game;
-import cards.SanicCard;
+import cards.SanicMinion;
 import cards.templates.Card;
 import cards.templates.Minion;
 import cards.templates.Spell;
@@ -56,6 +56,10 @@ public class BattleManager {
         refresh();
     }
     
+    public void addMinion(Minion minion, boolean b){
+        bf.addCard(minion, b);
+    }
+    
     public void drawCard(){
         Card c = playerDeck.pickCard();
         playerHand.addCard(c);
@@ -73,7 +77,7 @@ public class BattleManager {
     }
     
     public void testing(){
-        this.playCard(new SanicCard(), false);
+        this.playCard(new SanicMinion(), false);
     }
 
     public void IO(Action action) {
@@ -93,6 +97,10 @@ public class BattleManager {
                 c.attack();
             }
         }
+    }
+    
+    public boolean isRoom(int i){
+        return bf.P_CARDS.getLength()+i <= BattleField.MAX_SIZE;
     }
 
 }

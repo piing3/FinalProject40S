@@ -63,7 +63,7 @@ public abstract class Card extends JPanel implements Serializable{
         this.name = name;
     }
     
-    public void cardPlayed(){//battlecry
+    public void cardPlayed(boolean b){//battlecry
         
     }
     

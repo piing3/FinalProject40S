@@ -12,10 +12,13 @@ import javax.swing.JButton;
  * Teacher: Mr. Wachs 
  */
 public class GUI{
+    
+    public JButton turn;
 
     public GUI() {
         drawButton();
         testButton();
+        turnButton();
     }
     
     
@@ -43,5 +46,19 @@ public class GUI{
             }
         });
         finalproject.FinalProject.game.add(test,0);
+    }
+    
+    public void turnButton(){
+        turn =  new JButton("End Turn");
+        turn.setBounds(500, 99, 100, 50);
+        turn.setEnabled(false);
+        turn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                finalproject.FinalProject.battleManager.endTurn();
+            }
+        });
+        finalproject.FinalProject.game.add(turn,0);
     }
 }

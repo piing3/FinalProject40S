@@ -71,6 +71,10 @@ public abstract class Minion extends Card{
         healthLabel.setText(""+health);
     }
     
+    public void setReady(boolean b) {ready = b;}
+    
+    //---------------------------
+    
     @Override
     public String toString() {
         return super.toString()+ ": attack - "+this.attack+", health - "

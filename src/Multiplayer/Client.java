@@ -42,20 +42,21 @@ public class Client extends Thread{
 //                }
                 
                 Action input = (Action) inMessage.getData();
+                DataPacket<Action> outMessage = null;
                 if (input.text != null) {
-                    //string inputs
+                    if (input.text.equalsIgnoreCase("turn")) outMessage = new DataPacket<>(input);
                 }
                 else{   
-                    DataPacket<Action> outMessage = new DataPacket<>(/*names[i]+": "+*/input);
-                    sendData(outMessage);
+                    outMessage = new DataPacket<>(input);
                 }
+                sendData(outMessage);
 
             }catch(java.net.SocketException e){
                 sockets[i] = null;
                 outs[i] = null;
                 ins[i] = null;
                 System.out.println("Socket #"+i+", "+/*names[i]+*/", disconected");
-                sendData(new DataPacket<>("menu"));
+                sendData(new DataPacket<>(new Action("menu")));
                 wipeSockets();
     
             }  catch (ClassNotFoundException ex) {
@@ -70,7 +71,7 @@ public class Client extends Thread{
         }
     }
     
-    public <T> void  sendData(T data){
+    public <T> void  sendData(DataPacket<Action> data){
         for (ObjectOutputStream out : outs) {
             if (out != null && out != outs[i]) {
                 try {

@@ -25,7 +25,6 @@ public class Menu extends Container{
         makeBackground();
                 
         FinalProject.game = new Game();
-        GUI gui = new GUI();
         
         JButton start = new JButton();        
         start.setSize(500, 532);

@@ -173,6 +173,7 @@ public class Hand extends JPanel{
             if (CARDS.getData(i) != null) {
                 if (mX >= CARDS.getData(i).getX() && mX <= CARDS.getData(i).getX()+ Card.WIDTH) {
                     FinalProject.battleManager.playCard(CARDS.getData(i));
+                    
                 }
             }
         }

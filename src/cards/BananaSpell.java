@@ -2,6 +2,7 @@ package cards;
 
 import cards.templates.Minion;
 import cards.templates.Spell;
+import finalproject.BattleManager;
 import javax.swing.ImageIcon;
 
 /**
@@ -19,11 +20,14 @@ public class BananaSpell extends Spell{
         this.setCost(1);
         
     }
-
+    
     @Override
-    public void cardPlayed() {
-        if (finalproject.FinalProject.battleManager.isRoom(1)) {
-            finalproject.FinalProject.battleManager.addMinion(new BananaMinion(), true);
+    public void cardPlayed(boolean b) {
+        BattleManager bm = finalproject.FinalProject.battleManager;
+        if (bm.isRoom(1)) {
+            bm.addMinion(new BananaMinion(), b);
+            bm.addMinion(new BananaMinion(), b);
+            bm.addMinion(new BananaMinion(), b);
         }
     }
     

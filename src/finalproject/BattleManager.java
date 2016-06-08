@@ -9,6 +9,7 @@ import cards.templates.Spell;
 import static finalproject.FinalProject.game;
 import java.util.ArrayList;
 import utillity.LinkedList;
+import visuals.GUI;
 
 /**
  * Purpose: 
@@ -16,21 +17,24 @@ import utillity.LinkedList;
  * @author Davin
  * Teacher: Mr. Wachs
  */
-public class BattleManager {
+public class BattleManager {//oops, i've acedentialy put everything in this class
 
 
     Deck playerDeck;    
     Hand playerHand;
     LinkedList<Minion> allMinions = new LinkedList<>();
     BattleField bf = new BattleField();
+    boolean turn = false;
+    GUI gui;
     
     public BattleManager(Deck player) {
         playerDeck = player;
-        
         playerHand = new Hand(playerDeck);
         
         playerHand.setLocation(0, FinalProject.game.getHeight()-playerHand.getHeight());
         FinalProject.game.add(playerHand,0);
+        
+        gui = new GUI();
         new Game();
         
     }
@@ -40,6 +44,10 @@ public class BattleManager {
     }
     
     public void playCard(Card card, boolean b) {
+        if (!isTurn() && b ){
+            return;
+        }
+        
         if(bf.checkFull(b)){
             System.out.println("Your board is too full!");
             return;
@@ -48,7 +56,7 @@ public class BattleManager {
         if (card instanceof Minion) {
             bf.addCard((Minion)card, b);
         }
-        card.cardPlayed();
+        card.cardPlayed(b);
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
         }
@@ -72,8 +80,12 @@ public class BattleManager {
     }
     
     public void refresh(){
-        FinalProject.game.repaint();
-        FinalProject.game.validate();
+//        FinalProject.game.repaint();
+//        FinalProject.game.validate();
+        playerHand.repaint();
+        playerHand.validate();
+        bf.repaint();
+        bf.validate();
     }
     
     public void testing(){
@@ -81,6 +93,12 @@ public class BattleManager {
     }
 
     public void IO(Action action) {
+        if (action.text != null) {
+            if (action.text.equalsIgnoreCase("turn")) turn = true; 
+            return;
+        }
+        
+        
         if(action.cardPlayed){
             if (action.card instanceof Spell) {
                 action.card.setTarget(allMinions.getData(action.minion1));
@@ -102,5 +120,26 @@ public class BattleManager {
     public boolean isRoom(int i){
         return bf.P_CARDS.getLength()+i <= BattleField.MAX_SIZE;
     }
+
+    public void endTurn() {
+        if (turn) {
+            turn = !turn;
+            Game.sending = new Action("turn");
+            gui.turn.setEnabled(turn);
+            for (int i = 0; i < bf.P_CARDS.getLength(); i++) {
+                bf.P_CARDS.getData(i).setReady(true);
+            }
+        }
+    }
+
+    public boolean isTurn() {
+        return turn;
+    }
+    public void setTurn(boolean b) {
+        turn = b;
+        gui.turn.setEnabled(b);
+    }
+    
+    
 
 }

@@ -57,7 +57,7 @@ public class FinalProject {
         //battleManager.drawCard();
         //battleManager.playCard(battleManager.playerHand.CARDS.getData(0));
         
-        finalproject.FinalProject.window.setVisible(true); 
+        window.setVisible(true); 
     }
 
 }

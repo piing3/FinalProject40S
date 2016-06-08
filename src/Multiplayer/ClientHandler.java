@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import utillity.DataPacket;
 
 /**
  *
@@ -23,6 +24,7 @@ public class ClientHandler {
     public static ObjectOutputStream[] outs = new ObjectOutputStream[PORT_SIZE];
     public static ObjectInputStream[] ins = new ObjectInputStream[PORT_SIZE];
 //    private String[] names = new String[PORT_SIZE];
+    Client client = null;
 
     ClientHandler() {
         for (int i = 0; i < PORT_SIZE; i++) {
@@ -31,7 +33,7 @@ public class ClientHandler {
             ins[i] = null;
 //            names[i] = null;
             
-            Client client = new Client(i);
+            client = new Client(i);
             client.start();
         }
     }
@@ -44,6 +46,7 @@ public class ClientHandler {
                     outs[i] = new ObjectOutputStream(socket.getOutputStream());
                     ins[i] = new ObjectInputStream(socket.getInputStream());
                     //names[i] = name;
+                    if (i == 0)  client.sendData(new DataPacket<>(new Action("turn")));
                     return;
                 } catch (IOException ex) {
                     System.out.println("Error adding new socket");

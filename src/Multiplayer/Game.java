@@ -68,7 +68,7 @@ public class Game {
                         if (inMessage.getData().text != null) {
                             String s = inMessage.getData().text;
                             if (s.equalsIgnoreCase("exit")) System.exit(0);
-                            if (s.equalsIgnoreCase("turn")) finalproject.FinalProject.battleManager.setTurn(true);
+                            if (s.equalsIgnoreCase("turn")) finalproject.FinalProject.battleManager.startTurn(true);
                             if (s.equalsIgnoreCase("menu")){
                                 finalproject.FinalProject.window.setContentPane(new Menu());
                                 finalproject.FinalProject.startGame();

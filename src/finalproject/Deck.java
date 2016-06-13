@@ -122,7 +122,6 @@ public class Deck implements Serializable{
            c.printStackTrace();
            return null;
         }
-        System.out.println(d.toString());
         return d;
     }
     

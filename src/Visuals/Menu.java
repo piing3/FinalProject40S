@@ -37,6 +37,7 @@ public class Menu extends Container{
             @Override
             public void actionPerformed(ActionEvent e) {
                 FinalProject.window.setContentPane(FinalProject.game);
+                FinalProject.battleManager.refresh();
             }
         });
     }

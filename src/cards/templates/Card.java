@@ -125,8 +125,8 @@ public abstract class Card extends JPanel implements Serializable{
         costLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(costLabel,0);
         
- 
-        cardImage = new JLabel(new ImageIcon("src\\Images\\BlankCardImage.png"));
+        cardImage = new JLabel();
+        cardImage.setIcon(new ImageIcon("src\\Images\\CardIcons\\TodoCardImage.png"));
         cardImage.setSize(69,69);
         cardImage.setLocation(16, 17);
         this.add(cardImage,0);

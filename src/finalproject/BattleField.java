@@ -116,7 +116,7 @@ public class BattleField extends JPanel{// Needs to be recommented
     
     public void visuals(){
         this.setLayout(new GridLayout(2, 1));
-        this.setBounds(0, Card.HEIGHT+40, FinalProject.window.getWidth(),
+        this.setBounds(0, Card.HEIGHT+40, FinalProject.window.getWidth() - 165,
                 FinalProject.window.getHeight() - (2*(Card.HEIGHT+40)));
         this.setBackground(utillity.Utill.TAN);
         FinalProject.game.add(this, 0);

@@ -1,6 +1,13 @@
 package finalproject;
 
 
+import cards.BananaSpell;
+import cards.BushMinion;
+import cards.DarkBananaMinion;
+import cards.DrawSpell;
+import cards.LongBoyMinion;
+import cards.SanicMinion;
+import cards.TrogdorMinion;
 import java.io.File;
 import utillity.Settings;
 import visuals.GUI;
@@ -47,17 +54,47 @@ public class FinalProject {
 
     public static void startGame() { 
         
-        Deck player = new Deck();
-        player.setDefault1();
-        Deck.saveDeck(player);
-        player = Deck.readDeck(Settings.saves);
+        Deck player = Deck.readDeck("C:\\Users\\Davin\\Desktop\\FinalProject40S\\gamefiles\\default.txt");
         
         battleManager = new BattleManager(player);
-        //battleManager.drawCard();
-        //battleManager.drawCard();
-        //battleManager.playCard(battleManager.playerHand.CARDS.getData(0));
+//        battleManager.drawCard();
+//        battleManager.drawCard();
+//        battleManager.playCard(battleManager.playerHand.CARDS.getData(0));
         
         window.setVisible(true); 
+    }
+
+    private static void test(Deck player) {
+        player.addCard(new BananaSpell());
+        player.addCard(new BananaSpell());
+        player.addCard(new BananaSpell());
+        player.addCard(new BananaSpell());
+        player.addCard(new BushMinion());
+        player.addCard(new BushMinion());
+        player.addCard(new BushMinion());
+        player.addCard(new BushMinion());
+        player.addCard(new SanicMinion());
+        player.addCard(new SanicMinion());
+        player.addCard(new SanicMinion());
+        player.addCard(new SanicMinion());
+        player.addCard(new SanicMinion());
+        player.addCard(new SanicMinion());
+        player.addCard(new TrogdorMinion());
+        player.addCard(new TrogdorMinion());
+        player.addCard(new TrogdorMinion());
+        player.addCard(new TrogdorMinion());
+        player.addCard(new TrogdorMinion());
+        player.addCard(new DarkBananaMinion());
+        player.addCard(new DarkBananaMinion());
+        player.addCard(new DarkBananaMinion());
+        player.addCard(new DarkBananaMinion());
+        player.addCard(new LongBoyMinion());
+        player.addCard(new LongBoyMinion());
+        player.addCard(new LongBoyMinion());
+        player.addCard(new LongBoyMinion());
+        player.addCard(new DrawSpell());
+        player.addCard(new DrawSpell());
+        player.addCard(new DrawSpell());
     }
 
 }

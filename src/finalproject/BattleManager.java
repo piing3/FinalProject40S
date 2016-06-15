@@ -7,6 +7,7 @@ import cards.templates.Card;
 import cards.templates.Minion;
 import cards.templates.Spell;
 import static finalproject.FinalProject.game;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import utillity.LinkedList;
 import visuals.GUI;
@@ -27,6 +28,7 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
     boolean turn = false;
     GUI gui;
     int[] mana = {0,0,0,0,0,0,0,0,0,0};
+    boolean forceTarget;
     
     public BattleManager(Deck player) {
         playerDeck = player;
@@ -100,22 +102,27 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
             return;
         }
         
-        
         if(action.cardPlayed){
             if (action.card instanceof Spell) {
                 action.card.setTarget(allMinions.getData(action.minion1));
             }
             playCard(action.card, false);
         }
+        
+        if (!action.cardPlayed && (action.minion1 != -1 && action.minion2 != -1)) {
+            bf.target = action.minion1;
+            bf.attacker = action.minion2;
+            attack();
+        }
     }
 
     public void minionClicked(boolean b) {
         if (b) {
             Minion c = bf.P_CARDS.getData(bf.target);
-            if (c.isReady()) {
-                bf.forceSelect();
+            if (c.isReady() && bf.target != -1) {
                 c.attack();
             }
+            refresh();
         }
     }
     
@@ -131,6 +138,10 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
             for (int i = 0; i < bf.P_CARDS.getLength(); i++) {
                 bf.P_CARDS.getData(i).setReady(true);
             }
+            bf.selected.setVisible(turn);
+            bf.targeted.setVisible(turn);
+            FinalProject.game.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            gui.attack.setEnabled(false);
         }
     }
 
@@ -205,6 +216,53 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
         }
         if(b) playerHand.addCard(new cards.DrawSpell());
         
+    }
+
+    boolean canAttack(int i) {
+        if(!turn) return false;
+        if(!bf.P_CARDS.getData(i).isReady()) return false;
+        return true;
+    }
+    
+    boolean canTarget(int i, boolean b) {
+        if(!turn) return false;
+        if (bf.attacker == -1) return false;
+        if (b) {
+            if(bf.attacker == i) return true;
+            return false;
+            
+        }
+        return true;
+    }
+    
+    boolean canTarget(Card card) {
+        if(!turn) return false;
+        return true;
+    }
+
+    public void attack() {
+        
+        if(turn) Game.sending = new Action(false, null, bf.attacker, bf.target);
+        if(bf.target == -1 || bf.attacker == -1) return;
+        
+        int attack = bf.P_CARDS.getData(bf.attacker).getAttack();
+        int health = bf.O_CARDS.getData(bf.target).getHealth();
+        bf.O_CARDS.getData(bf.target).setHealth(health-attack);
+        
+        int attack1 = bf.O_CARDS.getData(bf.target).getAttack();
+        int health1 = bf.P_CARDS.getData(bf.attacker).getHealth();
+        bf.P_CARDS.getData(bf.attacker).setHealth(health1-attack1);
+        refresh();
+        
+        if (health - attack <= 0) bf.removeCard(bf.O_CARDS.getData(bf.target), false);
+        if (health1 - attack1 <= 0) bf.removeCard(bf.P_CARDS.getData(bf.attacker), true);
+        
+        bf.target = bf.attacker = -1;
+        bf.selected.setVisible(false);
+        bf.targeted.setVisible(false);
+        gui.attack.setEnabled(false);
+        
+        refresh();
     }
     
     

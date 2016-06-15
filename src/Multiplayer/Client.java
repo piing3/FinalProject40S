@@ -52,12 +52,13 @@ public class Client extends Thread{
                 sendData(outMessage);
 
             }catch(java.net.SocketException e){
-                sockets[i] = null;
-                outs[i] = null;
-                ins[i] = null;
-                System.out.println("Socket #"+i+", "+/*names[i]+*/", disconected");
-                sendData(new DataPacket<>(new Action("menu")));
-                wipeSockets();
+                System.exit(0);
+//                sockets[i] = null;
+//                outs[i] = null;
+//                ins[i] = null;
+//                System.out.println("Socket #"+i+", "+/*names[i]+*/", disconected");
+//                sendData(new DataPacket<>(new Action("menu")));
+//                wipeSockets();
     
             }  catch (ClassNotFoundException ex) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);

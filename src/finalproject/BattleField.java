@@ -3,9 +3,12 @@ package finalproject;
 import cards.templates.Card;
 import cards.templates.Minion;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import utillity.LinkedList;
 
@@ -24,10 +27,14 @@ public class BattleField extends JPanel{// Needs to be recommented
     public final LinkedList<Minion> P_CARDS = new LinkedList<>();
     public final LinkedList<Minion> O_CARDS = new LinkedList<>();
     private JPanel P_Minions;
-    private JPanel O_Minions; 
+    private JPanel O_Minions;
     
-    int target;
-    int attacker;
+    JLabel selected;
+    JLabel targeted;
+    
+    int target = -1;
+    int attacker = -1;
+    boolean targetP = false;
     
     // Normal-----------------
     
@@ -62,19 +69,15 @@ public class BattleField extends JPanel{// Needs to be recommented
      * Removes the given card from the hand.
      * @param card The card to remove
      */
-    public void removeCard(Card card, boolean player){
-//        if (player) {
-//            if(!checkFull(player)){
-//                P_CARDS.removeFirst(card);
-//                this.remove(card);
-//            }
-//        }
-//        else{
-//            if(!checkFull(player)){
-//                O_CARDS.addDataEnd(card);
-//                this.remove(card);
-//            }
-//        }
+    public void removeCard(Minion minion, boolean player){
+        if (player) {
+            P_CARDS.removeFirst(minion);
+            P_Minions.remove(minion);
+        }
+        else{
+            O_CARDS.removeFirst(minion);
+            O_Minions.remove(minion);
+        }
 
     }
     
@@ -131,6 +134,18 @@ public class BattleField extends JPanel{// Needs to be recommented
         P_Minions.setBackground(new Color(0, 0, 0, 0));
         this.add(P_Minions,1);
         
+        selected = new JLabel();
+        selected.setSize(Card.WIDTH,Card.HEIGHT);
+        selected.setIcon(new ImageIcon("src\\Images\\CardSelected.png"));
+        selected.setVisible(false);
+        finalproject.FinalProject.game.add(selected,0);
+        
+        targeted = new JLabel();
+        targeted.setSize(Card.WIDTH,Card.HEIGHT);
+        targeted.setIcon(new ImageIcon("src\\Images\\CardTargeted.png"));
+        targeted.setVisible(false);
+        finalproject.FinalProject.game.add(targeted,0);
+        
         MouseListener listener = new MouseListener() {
 
             @Override
@@ -159,32 +174,67 @@ public class BattleField extends JPanel{// Needs to be recommented
      
     private void checkClick(MouseEvent e){
         int mX = e.getX();
+        
+        if (FinalProject.battleManager.forceTarget) {
+            
+        }
+        
         if (e.getY() < Card.HEIGHT) {
             for (int i = 0; i < O_CARDS.getLength(); i++) {
                 if (O_CARDS.getData(i) != null) {
                     if (mX >= O_CARDS.getData(i).getX() && mX <= O_CARDS.getData(i).getX()+ Card.WIDTH) {
-                        
-                        target = i;
-                        FinalProject.battleManager.minionClicked(false);
+                       if(FinalProject.battleManager.canTarget(i, false)) pickTarget(i, false);
+                       else attacker = -1;
+                       break;
                     }
                 }
             }
-        }else{
+        }
+        
+        else{
             for (int i = 0; i < P_CARDS.getLength(); i++) {
                 if (P_CARDS.getData(i) != null) {
-                    if (mX >= P_CARDS.getData(i).getX() && mX <= P_CARDS.getData(i).getX()+ Card.WIDTH) {
-                        
-                        target = i;
-                        //System.out.println(P_CARDS.getData(i).toString());
-                        FinalProject.battleManager.minionClicked(true);
+                    if (mX >= P_CARDS.getData(i).getX() && mX <= P_CARDS.getData(i).getX()+ Card.WIDTH) {   
+                        if(FinalProject.battleManager.canTarget(i, true)) pickTarget(i, true);
+                        else if(FinalProject.battleManager.canAttack(i))pickAttacker(i);
                     }
                 }
             }
         }
     }
     
-    public void forceSelect(){
+    public void pickAttacker(int attacker){
+        this.attacker = attacker;
+        selected.setLocation(P_CARDS.getData(attacker).getX(), this.P_Minions.getY()+ Card.HEIGHT +50);
+        selected.setVisible(true);
+        FinalProject.game.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+        System.out.println("Pick a target");
+    }
+    
+    public void pickTarget(int target, boolean b){
+        if (target == attacker && b) {
+            attacker = -1;
+            selected.setVisible(false);
+            FinalProject.battleManager.refresh();
+            return;
+        }
+                
+        if (target == this.target && (!targetP == b)) {
+            target = -1;
+            targeted.setVisible(false);
+            FinalProject.battleManager.gui.attack.setEnabled(false);
+            FinalProject.game.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            FinalProject.battleManager.refresh();
+            return;
+        }
+                
+        this.target = target;
+        this.targetP = b;
+        if(b) targeted.setLocation(P_CARDS.getData(target).getX(), this.P_Minions.getY()+ Card.HEIGHT +50);
+        else  targeted.setLocation(O_CARDS.getData(target).getX(), this.O_Minions.getY()+ Card.HEIGHT +50);
+        targeted.setVisible(true);
+        FinalProject.game.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        FinalProject.battleManager.gui.attack.setEnabled(true);
         
     }
-
 }

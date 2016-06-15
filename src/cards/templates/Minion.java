@@ -1,5 +1,7 @@
 package cards.templates;
 
+import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -17,8 +19,8 @@ public abstract class Minion extends Card{
     protected boolean shield;
     protected boolean charge;
     
-    protected JLabel attackLabel = new JLabel(""+this.attack);;
-    protected JLabel healthLabel = new JLabel(""+this.health);;
+    protected JLabel attackLabel = new JLabel(""+this.attack);
+    protected JLabel healthLabel = new JLabel(""+this.health);
 
     
     
@@ -102,6 +104,7 @@ public abstract class Minion extends Card{
         healthLabel.setBounds(85, 84, 15, 10);
         healthLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.add(healthLabel,0);
+        
     }
 
     public boolean isCharge() {

@@ -22,6 +22,7 @@ import utillity.Utill;
 public class GUI{
     
     public JButton turn;
+    public JButton attack;
     private JPanel base;
     
     private JLabel[] mana = new JLabel[10];
@@ -31,6 +32,7 @@ public class GUI{
         //drawButton();
         //testButton();
         turnButton();
+        attackButton();
         mana();
     }
     
@@ -73,6 +75,20 @@ public class GUI{
             }
         });
         base.add(turn,0);
+    }
+    
+    public void attackButton(){
+        attack =  new JButton("Attack");
+        attack.setBounds(0, turn.getY() + 60, base.getWidth(), 50);
+        attack.setEnabled(false);
+        attack.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                finalproject.FinalProject.battleManager.attack();
+            }
+        });
+        base.add(attack,0);
     }
     
     public void base(){

@@ -7,5 +7,5 @@ package cards.templates;
  * Teacher: Mr. Wachs
  */
 public abstract class Spell extends Card{
-
+//super usefull
 }

@@ -146,7 +146,8 @@ public class LinkedList <T> implements Serializable{
             if(n == null) return null;
         }
         if (n==null) {
-            System.out.println("error");
+            return null;
+            
         }
         return (T) n.getData();
     }
@@ -192,16 +193,7 @@ public class LinkedList <T> implements Serializable{
     }
 
     public void removeFirst(T data) {
-        Node n = head;
-        for (int i = 0; i < length; i++) {
-            if(n == null) return;
-            if (n.getData().equals(data)){
-                removeData(data, i);
-                return;
-            }
-            n = n.getNext();
-            
-        }
+        removeData(data, findFirst(data));
     }
     
     public void removeAll(T[] array){

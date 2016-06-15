@@ -23,7 +23,6 @@ import visuals.Window;
 public class FinalProject {
     public static Window window;
     public static Game game;
-    public static GUI gui;
     public final static String settings = "C:\\Users\\d.holmberg\\Desktop\\GitHub\\FinalProject40S\\gamefiles\\settings.txt";
     public static BattleManager battleManager;
     
@@ -44,7 +43,10 @@ public class FinalProject {
 //        
 //        visuals.run();
 //        Settings.readSettings(settings);
-        
+        try {
+            Multiplayer.Server.main(args);
+        } catch (Exception e) {
+        }
         window = new Window();
         window.setContentPane(new Menu());
         startGame();
@@ -54,8 +56,10 @@ public class FinalProject {
 
     public static void startGame() { 
         
-        Deck player = Deck.readDeck("C:\\Users\\Davin\\Desktop\\FinalProject40S\\gamefiles\\default.txt");
+       // Deck player = Deck.readDeck("C:\\Users\\Davin\\Desktop\\FinalProject40S\\gamefiles\\default.txt");
         
+        Deck  player = new Deck();
+        test(player);
         battleManager = new BattleManager(player);
 //        battleManager.drawCard();
 //        battleManager.drawCard();

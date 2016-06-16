@@ -6,9 +6,8 @@ import cards.SanicMinion;
 import cards.templates.Card;
 import cards.templates.Minion;
 import cards.templates.Spell;
-import static finalproject.FinalProject.game;
 import java.awt.Cursor;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import utillity.LinkedList;
 import visuals.GUI;
 
@@ -60,7 +59,7 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
             bf.addCard((Minion)card, b);
         }
         card.cardPlayed(b);
-        changeMana(card.getCost(), 0);
+        if(isTurn())changeMana(card.getCost(), 0);
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
         }
@@ -224,13 +223,12 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
         return true;
     }
     
-    boolean canTarget(int i, boolean b) {
+    boolean canTarget(int i, boolean player) {
         if(!turn) return false;
         if (bf.attacker == -1) return false;
-        if (b) {
+        if (player) {
             if(bf.attacker == i) return true;
             return false;
-            
         }
         return true;
     }
@@ -242,20 +240,43 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
 
     public void attack() {
         
-        if(turn) Game.sending = new Action(false, null, bf.attacker, bf.target);
         if(bf.target == -1 || bf.attacker == -1) return;
+        if(turn) Game.sending = new Action(false, null, bf.attacker, bf.target);
         
-        int attack = bf.P_CARDS.getData(bf.attacker).getAttack();
-        int health = bf.O_CARDS.getData(bf.target).getHealth();
-        bf.O_CARDS.getData(bf.target).setHealth(health-attack);
+        if (bf.target == -2) {
+            int attack = bf.P_CARDS.getData(bf.attacker).getAttack();
+            int health = bf.oHero.getHealth();
+            bf.oHero.setHealth(health-attack);
+
+            bf.P_CARDS.getData(bf.attacker).setReady(false);
+            checkWin();
+        }
+        else if (bf.attacker == -2) {
+            
+            int attack = bf.O_CARDS.getData(bf.target).getAttack();
+            int health = bf.pHero.getHealth();
+            bf.pHero.setHealth(health-attack);
+
+            bf.O_CARDS.getData(bf.target).setReady(false);
+            checkWin();
+        }
         
-        int attack1 = bf.O_CARDS.getData(bf.target).getAttack();
-        int health1 = bf.P_CARDS.getData(bf.attacker).getHealth();
-        bf.P_CARDS.getData(bf.attacker).setHealth(health1-attack1);
-        refresh();
+        else{
+            int attack = bf.P_CARDS.getData(bf.attacker).getAttack();
+            int health = bf.O_CARDS.getData(bf.target).getHealth();
+            bf.O_CARDS.getData(bf.target).setHealth(health-attack);
+
+            int attack1 = bf.O_CARDS.getData(bf.target).getAttack();
+            int health1 = bf.P_CARDS.getData(bf.attacker).getHealth();
+            bf.P_CARDS.getData(bf.attacker).setHealth(health1-attack1);
+            
+            bf.P_CARDS.getData(bf.attacker).setReady(false);
+            
+            if (health - attack <= 0) bf.removeCard(bf.O_CARDS.getData(bf.target), false);
+            if (health1 - attack1 <= 0) bf.removeCard(bf.P_CARDS.getData(bf.attacker), true);
         
-        if (health - attack <= 0) bf.removeCard(bf.O_CARDS.getData(bf.target), false);
-        if (health1 - attack1 <= 0) bf.removeCard(bf.P_CARDS.getData(bf.attacker), true);
+        
+        }
         
         bf.target = bf.attacker = -1;
         bf.selected.setVisible(false);
@@ -263,6 +284,19 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
         gui.attack.setEnabled(false);
         
         refresh();
+    }
+
+    private void checkWin() {
+        if (bf.oHero.getHealth() <= 0) {
+            bf.oHero.setVisible(false);
+            JOptionPane.showMessageDialog(FinalProject.game, "You win");
+            System.out.println("You win");
+        }
+        else if (bf.pHero.getHealth() <= 0) {
+            bf.pHero.setVisible(false);
+            JOptionPane.showMessageDialog(FinalProject.game, "You lose");
+            System.out.println("You lose");
+        }
     }
     
     

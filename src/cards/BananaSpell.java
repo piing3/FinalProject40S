@@ -17,7 +17,7 @@ public class BananaSpell extends Spell{
         this.visuals();
         this.setName("Bananas!");
         this.setImage(new ImageIcon("src\\Images\\CardIcons\\MinionSwarmCardImage.png"));
-        this.setCost(1);
+        this.setCost(5);
         
     }
     

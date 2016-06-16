@@ -12,14 +12,14 @@ public class DrawSpell extends Spell {
 
     public DrawSpell() {
         this.visuals();
-        this.setName("Exceess Mana");//what is spelling
+        this.setName("Excess Mana");
         this.setCost(1);
         
     }
     
     @Override
-    public void cardPlayed(boolean b) {
-        finalproject.FinalProject.battleManager.drawCard(); 
+    public void cardPlayed(boolean player) {
+        if(player)finalproject.FinalProject.battleManager.drawCard(); 
     }
 
 }

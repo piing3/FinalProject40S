@@ -1,6 +1,9 @@
 package finalproject;
 
+import cards.Memelord1;
+import cards.Memelord2;
 import cards.templates.Card;
+import cards.templates.Hero;
 import cards.templates.Minion;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -32,9 +35,12 @@ public class BattleField extends JPanel{// Needs to be recommented
     JLabel selected;
     JLabel targeted;
     
+    Hero pHero;
+    Hero oHero;
+    
     int target = -1;
     int attacker = -1;
-    boolean targetP = false;
+    boolean targetPlayer = false;
     
     // Normal-----------------
     
@@ -107,32 +113,31 @@ public class BattleField extends JPanel{// Needs to be recommented
     }
 
     @Override
-    public String toString() {//todo
-        String string = "";
-//        for (int i = 0; i < MAX_SIZE; i++) {
-//            string += this.CARDS.getData(i).toString()+", ";
-//        }
-//        string = string.substring(0, string.length()-2);
-        return string;
+    public String toString() {
+        return super.toString();
     }
     // Visual--------------------------
     
     public void visuals(){
-        this.setLayout(new GridLayout(2, 1));
-        this.setBounds(0, Card.HEIGHT+40, FinalProject.window.getWidth() - 165,
-                FinalProject.window.getHeight() - (2*(Card.HEIGHT+40)));
+        this.setLayout(null);
+        this.setBounds(0, 0, FinalProject.window.getWidth() - 165,
+                FinalProject.window.getHeight() - (Card.HEIGHT+40));
         this.setBackground(utillity.Utill.TAN);
         FinalProject.game.add(this, 0);
         
+        JLabel outlines = new JLabel(new ImageIcon("C:\\Users\\Davin\\Desktop\\FinalProject40S\\src\\Images\\BattleField.png"));
+        outlines.setBounds(this.getBounds());
+        this.add(outlines,0);
+        
         O_Minions = new JPanel(new GridLayout(1, BattleField.MAX_SIZE));
-        O_Minions.setBounds(0, 0, this.getWidth(), Card.HEIGHT);
+        O_Minions.setBounds(0, 100, this.getWidth(), Card.HEIGHT);
         O_Minions.setBackground(new Color(0, 0, 0, 0));
         this.add(O_Minions,0);
         
         P_Minions = new JPanel(new GridLayout(1, BattleField.MAX_SIZE));
-        P_Minions.setBounds(0, Card.HEIGHT+20, this.getWidth(), Card.HEIGHT);
+        P_Minions.setBounds(0, 100 + Card.HEIGHT, this.getWidth(), Card.HEIGHT);
         P_Minions.setBackground(new Color(0, 0, 0, 0));
-        this.add(P_Minions,1);
+        this.add(P_Minions,0);
         
         selected = new JLabel();
         selected.setSize(Card.WIDTH,Card.HEIGHT);
@@ -145,6 +150,14 @@ public class BattleField extends JPanel{// Needs to be recommented
         targeted.setIcon(new ImageIcon("src\\Images\\CardTargeted.png"));
         targeted.setVisible(false);
         finalproject.FinalProject.game.add(targeted,0);
+        
+        pHero = new Memelord1();
+        pHero.setLocation(this.getWidth()/2 - 50, 100+ 2*(Card.HEIGHT));
+        this.add(pHero,0);
+        
+        oHero = new Memelord1();
+        oHero.setLocation(this.getWidth()/2 - 50, 0);
+        this.add(oHero,0);
         
         MouseListener listener = new MouseListener() {
 
@@ -175,11 +188,10 @@ public class BattleField extends JPanel{// Needs to be recommented
     private void checkClick(MouseEvent e){
         int mX = e.getX();
         
-        if (FinalProject.battleManager.forceTarget) {
-            
-        }
-        
-        if (e.getY() < Card.HEIGHT) {
+        if (e.getY() < P_Minions.getY()) {
+            if (mX >= oHero.getX() && mX <= oHero.getX()+ oHero.getWidth()) {
+                if(FinalProject.battleManager.canTarget(-2, false)) pickTarget(-2, false);
+            }
             for (int i = 0; i < O_CARDS.getLength(); i++) {
                 if (O_CARDS.getData(i) != null) {
                     if (mX >= O_CARDS.getData(i).getX() && mX <= O_CARDS.getData(i).getX()+ Card.WIDTH) {
@@ -192,6 +204,9 @@ public class BattleField extends JPanel{// Needs to be recommented
         }
         
         else{
+            if (mX >= pHero.getX() && mX <= pHero.getX()+ pHero.getWidth()) {
+                if(FinalProject.battleManager.canTarget(-2, true)) pickTarget(-2, true);
+            }
             for (int i = 0; i < P_CARDS.getLength(); i++) {
                 if (P_CARDS.getData(i) != null) {
                     if (mX >= P_CARDS.getData(i).getX() && mX <= P_CARDS.getData(i).getX()+ Card.WIDTH) {   
@@ -205,21 +220,21 @@ public class BattleField extends JPanel{// Needs to be recommented
     
     public void pickAttacker(int attacker){
         this.attacker = attacker;
-        selected.setLocation(P_CARDS.getData(attacker).getX(), this.P_Minions.getY()+ Card.HEIGHT +50);
+        selected.setLocation(P_CARDS.getData(attacker).getX(), this.P_Minions.getY());
         selected.setVisible(true);
         FinalProject.game.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         System.out.println("Pick a target");
     }
     
-    public void pickTarget(int target, boolean b){
-        if (target == attacker && b) {
+    public void pickTarget(int target, boolean player){
+        if (target == attacker && player) {
             attacker = -1;
             selected.setVisible(false);
             FinalProject.battleManager.refresh();
             return;
         }
                 
-        if (target == this.target && (!targetP == b)) {
+        if (target == this.target && (targetPlayer == player)) {
             target = -1;
             targeted.setVisible(false);
             FinalProject.battleManager.gui.attack.setEnabled(false);
@@ -229,9 +244,15 @@ public class BattleField extends JPanel{// Needs to be recommented
         }
                 
         this.target = target;
-        this.targetP = b;
-        if(b) targeted.setLocation(P_CARDS.getData(target).getX(), this.P_Minions.getY()+ Card.HEIGHT +50);
-        else  targeted.setLocation(O_CARDS.getData(target).getX(), this.O_Minions.getY()+ Card.HEIGHT +50);
+        this.targetPlayer = player;
+        if(player) {
+            if(target == -2) targeted.setLocation(pHero.getLocation());
+            else targeted.setLocation(P_CARDS.getData(target).getX(), this.P_Minions.getY());
+        }
+        else  {
+            if(target == -2) targeted.setLocation(oHero.getLocation());
+            else targeted.setLocation(O_CARDS.getData(target).getX(), this.O_Minions.getY());
+        }
         targeted.setVisible(true);
         FinalProject.game.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         FinalProject.battleManager.gui.attack.setEnabled(true);

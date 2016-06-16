@@ -24,9 +24,9 @@ public abstract class Card extends JPanel implements Serializable{
     protected String name;
     protected String text;
     
-    private JLabel costLabel;
-    private JLabel cardBackround;
-    private JLabel cardImage;
+    protected JLabel costLabel;
+    protected JLabel cardBackround;
+    protected JLabel cardImage;
     
     public static final int WIDTH = 100;
     public static final int HEIGHT = 160;

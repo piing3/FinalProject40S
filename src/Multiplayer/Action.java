@@ -1,11 +1,10 @@
 package Multiplayer;
 
 import cards.templates.Card;
-import cards.templates.Minion;
 import java.io.Serializable;
 
 /**
- * Purpose: 
+ * Purpose: General purpose data transfer
  * @Date
  * @author Davin
  * Teacher: Mr. Wachs
@@ -17,6 +16,13 @@ public class Action implements Serializable{
     public int minion2;
     public String text;
 
+    /**
+     * 
+     * @param cardPlayed
+     * @param card
+     * @param minion1
+     * @param minion2 
+     */
     public Action(boolean cardPlayed, Card card, int minion1, int minion2) {
         this.cardPlayed = cardPlayed;
         this.card = card;

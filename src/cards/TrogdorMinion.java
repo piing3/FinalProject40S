@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cards;
 
 import cards.templates.Minion;
@@ -22,9 +16,9 @@ public class TrogdorMinion extends Minion{
         this.visuals();
         this.setName("Trogdor");
         
-        this.setAttack(10);
-        this.setHealth(1);
-        this.setCost(4);
+        this.setAttack(9);
+        this.setHealth(6);
+        this.setCost(7);
         
         this.setImage(new ImageIcon("src\\Images\\CardIcons\\TrogdorCardImage.png"));
     }

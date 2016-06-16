@@ -3,12 +3,15 @@ package visuals;
 import utillity.Utill;
 import finalproject.*;
 import static finalproject.FinalProject.game;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -23,6 +26,7 @@ public class Menu extends Container{
         this.setSize(FinalProject.window.getSize());
         this.setLocation(0, 0);
         makeBackground();
+        makeTitle();
                 
         FinalProject.game = new Game();
         
@@ -31,7 +35,7 @@ public class Menu extends Container{
         start.setLocation((FinalProject.window.getWidth()/2) - start.getWidth()/2,
                           (FinalProject.window.getHeight()/2)- start.getHeight()/2);
         this.add(start,0);
-        start.setText("Start");
+        start.setText("Enter");
         start.addActionListener(new ActionListener() {
 
             @Override
@@ -50,10 +54,13 @@ public class Menu extends Container{
         this.add(background);
     }
 
-    private JButton makeButton(Rectangle rectangle) {
-        JButton button = new JButton();
-        button.setBounds(rectangle);
-        this.add(button,0);
-        return button;
+    private void makeTitle() {
+        JLabel title = new JLabel("Meme Lords");
+        title.setSize(FinalProject.window.getWidth()/2, 100);
+        title.setLocation((FinalProject.window.getWidth()/2)-(title.getWidth()/2), 0);
+        title.setFont(new Font(null, Font.BOLD, 90));
+        title.setForeground(Color.pink);
+        title.setHorizontalTextPosition(JLabel.CENTER);
+        this.add(title,0);
     }
 }

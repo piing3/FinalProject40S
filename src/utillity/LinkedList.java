@@ -141,9 +141,9 @@ public class LinkedList <T> implements Serializable{
         if(!inRange(index)) return null;
         Node n = head;
         
-        for (int i = 0; i < index; i++){ 
+        for (int i = 0; i < index; i++){
+            if(n == null) return null; 
             n = n.getNext();
-            if(n == null) return null;
         }
         if (n==null) {
             return null;

@@ -112,6 +112,7 @@ public class LinkedList <T> implements Serializable{
     }
     
     public void removeData(T data, int index){
+        if(head == null) return;
         Node n = head;
         for (int i = 0; i < index; i++) {
             n = n.getNext();

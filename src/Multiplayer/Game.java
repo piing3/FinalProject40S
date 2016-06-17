@@ -26,7 +26,7 @@ public class Game {
     public Game() {
 
         try {
-            socket = new Socket("127.0.0.1", 5000);
+            socket = new Socket("25.22.41.236", 5000);
         } catch (Exception ex) {
             System.out.println("Error: " + ex);
             return;

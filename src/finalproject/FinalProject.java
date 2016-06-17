@@ -4,13 +4,9 @@ package finalproject;
 import cards.BananaSpell;
 import cards.BushMinion;
 import cards.DarkBananaMinion;
-import cards.DrawSpell;
 import cards.LongBoyMinion;
 import cards.SanicMinion;
 import cards.TrogdorMinion;
-import java.io.File;
-import utillity.Settings;
-import visuals.GUI;
 import visuals.Menu;
 import visuals.Game;
 import visuals.Window;
@@ -44,7 +40,7 @@ public class FinalProject {
 //        visuals.run();
 //        Settings.readSettings(settings);
         try {
-            Multiplayer.Server.main(args);
+            //Multiplayer.Server.main(args);
         } catch (Exception e) {
         }
         window = new Window();
@@ -96,9 +92,6 @@ public class FinalProject {
         player.addCard(new LongBoyMinion());
         player.addCard(new LongBoyMinion());
         player.addCard(new LongBoyMinion());
-        player.addCard(new DrawSpell());
-        player.addCard(new DrawSpell());
-        player.addCard(new DrawSpell());
     }
 
 }

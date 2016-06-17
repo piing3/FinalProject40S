@@ -45,25 +45,27 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
         playCard(card, true);
     }
     
-    public void playCard(Card card, boolean b) {
-        if ((!isTurn() && b) || (isTurn() && !hasMana(card.getCost())) ){
+    public void playCard(Card card, boolean player) {
+        if ((!isTurn() && player) || (isTurn() && !hasMana(card.getCost())) ){
             return;
         }
         
-        if(bf.checkFull(b)){
+        if(bf.checkFull(player)){
             System.out.println("Your board is too full!");
             return;
         }
-        playerHand.removeCard(card);
         if (card instanceof Minion) {
-            bf.addCard((Minion)card, b);
+            bf.addCard((Minion)card, player);
         }
-        card.cardPlayed(b);
-        if(isTurn())changeMana(card.getCost(), 0);
+        card.cardPlayed(player);
+        if(isTurn()){
+            playerHand.removeCard(card);
+            changeMana(card.getCost(), 0);
+        }
         for (int i = 0; i < allMinions.getLength(); i++) {
             allMinions.getData(i).cardPlayInterupt();
         }
-        if(b) Game.sending = new Action(true, card, -1, -1);
+        if(player) Game.sending = new Action(true, card, -1, -1);
         refresh();
     }
     
@@ -135,7 +137,9 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
             Game.sending = new Action("turn");
             gui.turn.setEnabled(turn);
             for (int i = 0; i < bf.P_CARDS.getLength(); i++) {
+                if(bf.P_CARDS.getData(i) != null){ 
                 bf.P_CARDS.getData(i).setReady(true);
+                }
             }
             bf.selected.setVisible(turn);
             bf.targeted.setVisible(turn);
@@ -213,7 +217,6 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
                 }
             }  
         }
-        if(b) playerHand.addCard(new cards.DrawSpell());
         
     }
 
@@ -291,11 +294,13 @@ public class BattleManager {//oops, i've acedentialy put everything in this clas
             bf.oHero.setVisible(false);
             JOptionPane.showMessageDialog(FinalProject.game, "You win");
             System.out.println("You win");
+            System.exit(0);
         }
         else if (bf.pHero.getHealth() <= 0) {
             bf.pHero.setVisible(false);
             JOptionPane.showMessageDialog(FinalProject.game, "You lose");
             System.out.println("You lose");
+            System.exit(0);
         }
     }
     
